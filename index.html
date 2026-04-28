@@ -3,11 +3,67 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Website đếm ngược và tiện ích ôn thi THPT Quốc gia 2026." />
-  <title>Trạm Ôn Thi THPT 2026 | Countdown & Tools</title>
+  <meta name="theme-color" content="#0ea5e9" />
+  <meta name="description" content="Trạm Ôn Thi THPT 2026 là website đếm ngược ngày thi tốt nghiệp THPT, theo dõi lịch thi, luyện Pomodoro, nghe nhạc lofi và tham gia chat cộng đồng cho sĩ tử 2K8." />
+  <meta name="keywords" content="đếm ngược ngày thi thpt 2026, đếm ngược tốt nghiệp thpt 2026, lịch thi thpt 2026, ôn thi thpt quốc gia, sĩ tử 2k8, đồng hồ pomodoro, timer học tập, nhạc lofi học bài, chat cộng đồng ôn thi, lịch thi tốt nghiệp thpt, đếm ngược ngày thi đại học, website ôn thi thpt, đề thi minh họa thpt, chiến lược ôn thi thpt, tài liệu ôn thi thpt quốc gia, lịch thi tốt nghiệp thpt quốc gia 2026, đếm ngược thi đại học 2026" />
+  <meta name="author" content="Trạm Ôn Thi THPT 2026" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="googlebot" content="index, follow" />
+  <link rel="canonical" href="https://demnguocngaythi.xyz/" />
+  <title>Đếm Ngược Ngày Thi THPT 2026 | Lịch Thi, Pomodoro, Nhạc Lofi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Trạm Ôn Thi THPT 2026" />
+  <meta property="og:title" content="Đếm Ngược Ngày Thi THPT 2026 | Lịch Thi, Pomodoro, Nhạc Lofi" />
+  <meta property="og:description" content="Website đếm ngược ngày thi THPT 2026, xem lịch thi, luyện Pomodoro, nghe nhạc lofi và chat cộng đồng cho sĩ tử 2K8." />
+  <meta property="og:url" content="https://demnguocngaythi.xyz/" />
+  <meta property="og:image" content="https://demnguocngaythi.xyz/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="vi_VN" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Đếm Ngược Ngày Thi THPT 2026 | Lịch Thi, Pomodoro, Nhạc Lofi" />
+  <meta name="twitter:description" content="Website đếm ngược ngày thi THPT 2026, xem lịch thi, luyện Pomodoro, nghe nhạc lofi và chat cộng đồng cho sĩ tử 2K8." />
+  <meta name="twitter:image" content="https://demnguocngaythi.xyz/og-image.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Trạm Ôn Thi THPT 2026",
+        "url": "https://demnguocngaythi.xyz/",
+        "description": "Website đếm ngược ngày thi THPT 2026, lịch thi, pomodoro, nhạc lofi và chat cộng đồng.",
+        "inLanguage": "vi-VN",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://demnguocngaythi.xyz/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "Trạm Ôn Thi THPT 2026",
+        "url": "https://demnguocngaythi.xyz/",
+        "logo": "https://demnguocngaythi.xyz/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/groups/1993914981519042"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "name": "Đếm Ngược Ngày Thi THPT 2026 | Lịch Thi, Pomodoro, Nhạc Lofi",
+        "url": "https://demnguocngaythi.xyz/",
+        "description": "Theo dõi ngày thi THPT 2026, lịch thi, Pomodoro học tập, nhạc lofi và chat cộng đồng dành cho sĩ tử 2K8."
+      }
+    ]
+  }
+  </script>
   
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
@@ -94,29 +150,20 @@
     }
     .logo { width: 48px; height: 48px; border-radius: 16px; background: linear-gradient(135deg, var(--primary), var(--primary-2)); display: grid; place-items: center;
       font-weight: 800; color: white; }
-    .brand h1 { margin: 0; font-size: 1.1rem; line-height: 1.2;
-    }
-    .brand p { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem;
-    }
+    .brand h1 { margin: 0; font-size: 1.1rem; line-height: 1.2; }
+    .brand p { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
 
-    .theme-toggle { background: var(--card); border: 1px solid var(--card-border); color: var(--text); width: 44px; height: 44px; border-radius: 50%;
-      cursor: pointer; display: grid; place-items: center; transition: all 0.3s ease; }
-    .theme-toggle:hover { transform: scale(1.1) rotate(15deg);
-      background: var(--bg-soft); }
-    .theme-toggle svg { width: 20px; height: 20px; fill: currentColor;
-    }
+    .theme-toggle { background: var(--card); border: 1px solid var(--card-border); color: var(--text); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: grid; place-items: center; transition: all 0.3s ease; }
+    .theme-toggle:hover { transform: scale(1.1) rotate(15deg); background: var(--bg-soft); }
+    .theme-toggle svg { width: 20px; height: 20px; fill: currentColor; }
     [data-theme="dark"] .icon-moon { display: none; }
     [data-theme="light"] .icon-sun { display: none;
     }
 
     /* COMPONENT CHUNG */
-    .panel { background: var(--bg-soft); border: 1px solid var(--card-border);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 28px; box-shadow: var(--shadow); }
-    .btn { appearance: none; border: 0; border-radius: 12px;
-      padding: 12px 20px; font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: all 0.2s ease; display: inline-flex; align-items: center;
-      justify-content: center; gap: 8px; }
-    .btn:active { transform: scale(0.96);
-    }
+    .panel { background: var(--bg-soft); border: 1px solid var(--card-border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 28px; box-shadow: var(--shadow); }
+    .btn { appearance: none; border: 0; border-radius: 12px; padding: 12px 20px; font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn:active { transform: scale(0.96); }
     .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; }
     .btn-secondary { background: var(--stat-bg);
       color: var(--text); border: 1px solid var(--card-border); }
@@ -132,8 +179,7 @@
       margin-bottom: 24px; }
     .countdown-card { padding: 36px; text-align: center; display: flex; flex-direction: column; align-items: center;
     }
-    .countdown-card h2 { margin: 0 0 8px; font-size: 2rem;
-    }
+    .countdown-card h1 { margin: 0 0 8px; font-size: 2rem; }
     .countdown-card p { margin: 0 0 24px; color: var(--muted);
     }
     .timer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: 100%; max-width: 800px;
@@ -145,17 +191,13 @@
     .unit span { color: var(--muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
     }
 
-    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
-    }
-    .tool-card { padding: 28px; display: flex; flex-direction: column; gap: 16px;
-    }
+    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .tool-card { padding: 28px; display: flex; flex-direction: column; gap: 16px; }
     .tool-card h3 { margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px;
     }
     .tool-card h3 span { font-size: 1.5rem; }
 
-    .timer-tabs { display: flex; gap: 10px;
-      padding: 6px; background: var(--stat-bg); border: 1px solid var(--card-border); border-radius: 18px;
-    }
+    .timer-tabs { display: flex; gap: 10px; padding: 6px; background: var(--stat-bg); border: 1px solid var(--card-border); border-radius: 18px; }
     .timer-tab {
       flex: 1;
       border: 0;
@@ -174,8 +216,7 @@
     .timer-tab.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; box-shadow: 0 10px 24px rgba(99,102,241,.24);
     }
     .timer-panel { display: none; }
-    .timer-panel.active { display: flex;
-    }
+    .timer-panel.active { display: flex; }
 
     .timer-display {
       font-family: 'Inter', sans-serif;
@@ -202,14 +243,10 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    .timer-controls { display: grid;
-      grid-template-columns: 1fr 1fr; gap: 12px; }
-    .timer-controls .btn { width: 100%;
-    }
-    .music-player iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; min-height: 220px; border-radius: 16px;
-      border: 1px solid var(--card-border); background: var(--stat-bg); }
-    .preset-times { display: flex; flex-wrap: wrap; gap: 8px;
-    }
+    .timer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .timer-controls .btn { width: 100%; }
+    .music-player iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; min-height: 220px; border-radius: 16px; border: 1px solid var(--card-border); background: var(--stat-bg); }
+    .preset-times { display: flex; flex-wrap: wrap; gap: 8px; }
     .preset-time-btn { padding: 9px 12px; border-radius: 999px; border: 1px solid var(--card-border); background: var(--stat-bg); color: var(--text);
       cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: all 0.2s ease; }
     .preset-time-btn:hover { border-color: var(--primary); transform: translateY(-1px);
@@ -220,10 +257,8 @@
     .quote-box { flex: 1; display: flex;
       flex-direction: column; justify-content: center; padding: 24px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-align: center; font-style: italic; font-size: 1.1rem;
       line-height: 1.6; min-height: 160px; transition: opacity 0.18s ease, transform 0.18s ease; }
-    .quote-author { display: block;
-      margin-top: 12px; font-weight: 900; font-style: normal; color: var(--primary); font-size: 3.95rem; }
-    .quote-author.small { font-size: 0.85rem; color: var(--muted);
-    }
+    .quote-author { display: block; margin-top: 12px; font-weight: 900; font-style: normal; color: var(--primary); font-size: 3.95rem; }
+    .quote-author.small { font-size: 0.85rem; color: var(--muted); }
     .quote-text-large { font-style: italic; font-size: 1.1rem; line-height: 1.6; }
     .news-list { display: flex;
       flex-direction: column; gap: 12px; list-style: none; padding: 0; margin: 0; }
@@ -314,15 +349,34 @@
     .chat-footer .input-row { display: flex; gap: 8px;
     }
 
-    @media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr;
-    } }
-    @media (max-width: 640px) { 
-      .timer { grid-template-columns: repeat(2, 1fr);
-      }
-      .chat-widget { width: calc(100vw - 40px); right: 20px; bottom: 100px; height: 60vh;
-      }
-      .chat-fab { right: 20px; bottom: 20px;
-      }
+    @media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) {
+      .container { width: min(100% - 20px, 100%); padding: 16px 0 40px; }
+      header { flex-wrap: wrap; padding: 8px 0 20px; }
+      .brand { width: 100%; }
+      .brand h1 { font-size: 1rem; }
+      .brand p { font-size: 0.82rem; }
+      .theme-toggle { width: 40px; height: 40px; }
+      .countdown-card { padding: 22px 16px; }
+      .countdown-card h1 { font-size: 1.35rem; }
+      .timer { grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 100%; }
+      .unit { padding: 14px 10px; border-radius: 18px; }
+      .unit strong { font-size: 1.8rem; }
+      .unit span { font-size: 0.72rem; }
+      .tool-card { padding: 18px; gap: 14px; }
+      .tool-card h3 { font-size: 1.05rem; }
+      .timer-tabs { gap: 8px; padding: 4px; border-radius: 14px; }
+      .timer-tab { padding: 10px 8px; font-size: 0.84rem; }
+      .timer-display { font-size: 2.8rem; padding: 16px 14px; border-radius: 14px; }
+      .timer-display.countdown-big { font-size: clamp(2.9rem, 16vw, 4rem); padding: 18px 12px; }
+      .timer-controls { grid-template-columns: 1fr; }
+      .input-group { flex-direction: column; }
+      .music-player iframe { min-height: 190px; }
+      .quote-box { padding: 18px; min-height: 130px; font-size: 0.98rem; }
+      .quote-author { font-size: 2.85rem; }
+      .news-item { padding: 14px; }
+      .chat-widget { width: calc(100vw - 16px); right: 8px; bottom: 86px; height: 62vh; }
+      .chat-fab { right: 14px; bottom: 14px; width: 56px; height: 56px; }
     }
   </style>
 </head>
@@ -342,7 +396,7 @@
 
     <section class="hero" id="top">
       <div class="panel countdown-card">
-        <h2>Kỳ thi Tốt nghiệp THPT 2026</h2>
+        <h1>Kỳ thi Tốt nghiệp THPT 2026</h1>
         <p id="targetDateText">Đang tải...</p>
         
         <div class="timer">
