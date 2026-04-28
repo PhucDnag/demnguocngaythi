@@ -123,9 +123,14 @@
 
     .timer-display { font-size: 4rem; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; color: var(--primary); background: var(--stat-bg); border-radius: 16px; padding: 20px; border: 1px solid var(--card-border); }
     .timer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .music-player iframe { width: 100%; height: 180px; border-radius: 16px; border: 1px solid var(--card-border); background: var(--stat-bg); }
+    .timer-controls .btn { width: 100%; }
+    .music-player iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; min-height: 220px; border-radius: 16px; border: 1px solid var(--card-border); background: var(--stat-bg); }
+    .preset-times { display: flex; flex-wrap: wrap; gap: 8px; }
+    .preset-time-btn { padding: 9px 12px; border-radius: 999px; border: 1px solid var(--card-border); background: var(--stat-bg); color: var(--text); cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: all 0.2s ease; }
+    .preset-time-btn:hover { border-color: var(--primary); transform: translateY(-1px); }
+    .preset-time-btn.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; border-color: transparent; }
     .input-group { display: flex; gap: 8px; }
-    .quote-box { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-align: center; font-style: italic; font-size: 1.1rem; line-height: 1.6; }
+    .quote-box { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-align: center; font-style: italic; font-size: 1.1rem; line-height: 1.6; min-height: 160px; transition: opacity 0.18s ease, transform 0.18s ease; }
     .quote-author { display: block; margin-top: 12px; font-weight: 600; font-style: normal; color: var(--primary); font-size: 0.95rem; }
     .news-list { display: flex; flex-direction: column; gap: 12px; list-style: none; padding: 0; margin: 0; }
     .news-item { padding: 16px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-decoration: none; color: inherit; transition: all 0.2s; }
@@ -230,7 +235,16 @@
 
     <section class="tools-grid">
       <article class="panel tool-card">
-        <h3><span>⏱️</span> Chế độ thi thử</h3>
+        <h3><span>⏱️</span> Đồng hồ bấm giờ</h3>
+        <div class="timer-display" id="stopwatchDisplay">00:00:00</div>
+        <div class="timer-controls">
+          <button class="btn btn-primary" id="btnStopwatchToggle">Bắt đầu</button>
+          <button class="btn btn-danger" id="btnStopwatchReset">Làm lại</button>
+        </div>
+      </article>
+
+      <article class="panel tool-card">
+        <h3><span>📚</span> Đếm ngược thời gian thi các môn</h3>
         <select id="subjectSelect">
           <option value="90">Môn Toán (90 phút)</option>
           <option value="120">Môn Ngữ Văn (120 phút)</option>
@@ -238,10 +252,13 @@
           <option value="50">Khoa học (50 phút)</option>
           <option value="15">Test nhanh (15 phút)</option>
         </select>
-        <div class="timer-display" id="examTimerDisplay">90:00</div>
+        <div class="quote-box" style="margin:0;">
+          <span id="subjectTimerLabel">Chọn môn để xem thời gian tương ứng.</span>
+          <span class="quote-author" id="subjectTimerValue">90 phút</span>
+        </div>
         <div class="timer-controls">
-          <button class="btn btn-primary" id="btnExamToggle">Bắt đầu</button>
-          <button class="btn btn-danger" id="btnExamReset">Làm lại</button>
+          <button class="btn btn-primary" id="btnSubjectStart">Bắt đầu</button>
+          <button class="btn btn-secondary" id="btnSubjectReset">Làm lại</button>
         </div>
       </article>
 
@@ -258,7 +275,7 @@
 
       <article class="panel tool-card">
         <h3><span>🔥</span> Nạp năng lượng</h3>
-        <div class="quote-box">
+        <div class="quote-box" id="quoteBox">
           <span id="quoteText">"Nỗ lực hôm nay, huy hoàng ngày mai. Hãy cố gắng!"</span>
           <span class="quote-author" id="quoteAuthor">- Khuyết danh</span>
         </div>
@@ -304,34 +321,27 @@
     </div>
   </div>
 
-  <div id="welcomePopup" style="position:fixed;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;">
-    <div style="width:min(92vw,560px);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(248,250,252,.96));box-shadow:0 30px 90px rgba(0,0,0,.28);padding:0;color:#0f172a;border:1px solid rgba(255,255,255,.5);overflow:hidden;position:relative;">
-      <div style="height:140px;background:linear-gradient(135deg,#2563eb,#8b5cf6);position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:auto -30px -40px auto;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.14);"></div>
-        <div style="position:absolute;inset:22px 24px auto 24px;display:flex;justify-content:space-between;align-items:start;gap:12px;">
+  <div id="welcomePopup" style="position:fixed;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;">
+    <div style="width:min(92vw,520px);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.99),rgba(248,250,252,.96));box-shadow:0 30px 90px rgba(0,0,0,.28);padding:0;color:#0f172a;border:1px solid rgba(255,255,255,.56);overflow:hidden;position:relative;">
+      <div style="padding:22px 24px 16px;background:linear-gradient(135deg,#2563eb,#8b5cf6);position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:auto -36px -42px auto;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.12);"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;position:relative;z-index:1;">
           <div>
             <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.02em;">THÔNG BÁO</div>
-            <h2 style="margin:14px 0 0;font-size:1.55rem;line-height:1.25;color:#fff;">Chào mừng sĩ tử 2K8</h2>
-            <p style="margin:8px 0 0;color:rgba(255,255,255,.88);line-height:1.55;max-width:420px;">Cùng nhau giữ nhịp ôn tập thật tốt, vững tâm trước kỳ thi và tiến gần hơn tới mục tiêu đại học.</p>
+            <h2 style="margin:14px 0 0;font-size:1.5rem;line-height:1.25;color:#fff;">Cộng đồng ôn thi THPT</h2>
+            <p style="margin:8px 0 0;color:rgba(255,255,255,.88);line-height:1.55;max-width:380px;">Tham gia group Facebook để cập nhật thông tin, chia sẻ tài liệu và đồng hành cùng nhau.</p>
           </div>
           <button id="closeWelcomePopup" aria-label="Đóng popup" style="border:none;background:rgba(255,255,255,.18);color:#fff;width:42px;height:42px;border-radius:999px;font-size:1.1rem;cursor:pointer;backdrop-filter:blur(8px);">✕</button>
         </div>
       </div>
       <div style="padding:22px 24px 24px;">
-        <div id="motivationCard" style="padding:18px 18px 16px;border-radius:20px;background:linear-gradient(180deg,rgba(14,165,233,.08),rgba(139,92,246,.08));border:1px solid rgba(99,102,241,.14);margin-bottom:16px;">
-          <div style="font-size:.82rem;font-weight:800;color:#2563eb;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">Câu truyền động lực</div>
-          <div id="motivationText" style="font-size:1.08rem;line-height:1.7;font-weight:600;color:#0f172a;min-height:76px;">Bạn không cần giỏi ngay hôm nay, chỉ cần tốt hơn hôm qua một chút.</div>
-          <div style="display:flex;justify-content:flex-end;margin-top:14px;">
-            <button id="btnChangeMotivation" style="border:none;background:#0f172a;color:#fff;padding:10px 14px;border-radius:14px;cursor:pointer;font-weight:700;">Đổi câu khác</button>
+        <a href="https://www.facebook.com/groups/1993914981519042" target="_blank" rel="noopener noreferrer" aria-label="Mở group Facebook" style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:20px;background:#f8fafc;border:1px solid rgba(148,163,184,.18);margin-bottom:18px;text-decoration:none;color:inherit;transition:transform .2s ease, box-shadow .2s ease;">
+          <div style="width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,rgba(37,99,235,.14),rgba(139,92,246,.14));display:grid;place-items:center;flex:0 0 auto;font-weight:800;color:#2563eb;font-size:1.1rem;">f</div>
+          <div style="line-height:1.55;">
+            <div style="font-weight:800;font-size:1rem;margin-bottom:4px;">Ấn vào đây để tham gia group</div>
+            <div style="color:var(--muted);font-size:.92rem;">Cập nhật thông tin thi, trao đổi tài liệu và học cùng nhau mỗi ngày.</div>
           </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:12px;padding:16px;border-radius:18px;background:#f8fafc;border:1px solid rgba(148,163,184,.18);margin-bottom:16px;">
-          <div style="width:42px;height:42px;border-radius:14px;background:rgba(37,99,235,.12);display:grid;place-items:center;font-size:1.1rem;flex:0 0 auto;">👥</div>
-          <div style="line-height:1.6;">
-            <div style="font-weight:800;margin-bottom:4px;">Group Facebook</div>
-            <a href="https://www.facebook.com/groups/1993914981519042" target="_blank" rel="noopener noreferrer" style="color:#2563eb;font-weight:700;word-break:break-word;">https://www.facebook.com/groups/1993914981519042</a>
-          </div>
-        </div>
+        </a>
         <div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;">
           <button id="dontShowWelcomeAgain" style="border:none;background:#e2e8f0;color:#0f172a;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;">Không hiện lại</button>
           <button id="closeWelcomePopup2" style="border:none;background:linear-gradient(135deg,#2563eb,#7c3aed);color:white;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700;">Đóng</button>
@@ -360,35 +370,7 @@
     const closeWelcomePopup = document.getElementById('closeWelcomePopup');
     const closeWelcomePopup2 = document.getElementById('closeWelcomePopup2');
     const dontShowWelcomeAgain = document.getElementById('dontShowWelcomeAgain');
-    const btnChangeMotivation = document.getElementById('btnChangeMotivation');
-    const motivationText = document.getElementById('motivationText');
     const hideWelcome = localStorage.getItem('hide_welcome_popup') === '1';
-
-    const motivationQuotes = [
-      'Bạn không cần giỏi ngay hôm nay, chỉ cần tốt hơn hôm qua một chút.',
-      'Mỗi giờ học là một bước gần hơn tới ước mơ.',
-      'Khi bạn muốn bỏ cuộc, hãy nhớ lý do mình bắt đầu.',
-      'Đi chậm cũng được, miễn là bạn không dừng lại.',
-      'Kỷ luật hôm nay sẽ tạo nên tự do ngày mai.',
-      'Không ai thành công chỉ nhờ may mắn, mọi thứ đều đến từ nỗ lực.',
-      'Một ngày cố gắng nghiêm túc sẽ đổi lại tương lai rực rỡ hơn.',
-      'Đừng sợ chậm, chỉ sợ bạn đứng yên quá lâu.',
-      'Thi cử chỉ là một chặng đường, còn bản lĩnh là thứ theo bạn cả đời.',
-      'Bạn hoàn toàn có thể làm được, miễn là tiếp tục tiến lên.'
-    ];
-
-    function getRandomMotivation(current) {
-      if (motivationQuotes.length === 1) return motivationQuotes[0];
-      let next = current;
-      while (next === current) {
-        next = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
-      }
-      return next;
-    }
-
-    if (motivationText) {
-      motivationText.textContent = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
-    }
 
     if (!hideWelcome) {
       welcomePopup.style.display = 'flex';
@@ -403,14 +385,6 @@
     dontShowWelcomeAgain.addEventListener('click', () => {
       localStorage.setItem('hide_welcome_popup', '1');
       closeWelcome();
-    });
-    btnChangeMotivation.addEventListener('click', () => {
-      if (!motivationText) return;
-      motivationText.style.opacity = '0';
-      setTimeout(() => {
-        motivationText.textContent = getRandomMotivation(motivationText.textContent.trim());
-        motivationText.style.opacity = '1';
-      }, 160);
     });
     welcomePopup.addEventListener('click', (e) => {
       if (e.target === welcomePopup) closeWelcome();
@@ -430,19 +404,116 @@
       }
     }, 1000);
 
-    // Exam Timer
-    let examTimeTotal = 90 * 60, examTimeLeft = examTimeTotal, examInterval = null, isExamRunning = false;
-    const examDisplay = document.getElementById('examTimerDisplay'), btnToggle = document.getElementById('btnExamToggle');
-    function updateExamDisplay() {
-      const m = Math.floor(examTimeLeft / 60), s = examTimeLeft % 60;
-      examDisplay.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    // Stopwatch - độc lập bên trái
+    let stopwatchSeconds = 0, stopwatchInterval = null, stopwatchRunning = false;
+    const stopwatchDisplay = document.getElementById('stopwatchDisplay');
+    const btnStopwatchToggle = document.getElementById('btnStopwatchToggle');
+    const btnStopwatchReset = document.getElementById('btnStopwatchReset');
+
+    function formatStopwatch(totalSeconds) {
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     }
-    document.getElementById('btnExamToggle').addEventListener('click', () => {
-      if(isExamRunning){ clearInterval(examInterval); isExamRunning=false; btnToggle.textContent="Tiếp tục"; }
-      else { isExamRunning=true; btnToggle.textContent="Tạm dừng"; 
-        examInterval = setInterval(()=> { if(examTimeLeft>0){examTimeLeft--; updateExamDisplay();} else {clearInterval(examInterval);} }, 1000);
+
+    function updateStopwatchDisplay() {
+      stopwatchDisplay.textContent = formatStopwatch(stopwatchSeconds);
+    }
+
+    function resetStopwatch() {
+      clearInterval(stopwatchInterval);
+      stopwatchSeconds = 0;
+      stopwatchRunning = false;
+      btnStopwatchToggle.textContent = 'Bắt đầu';
+      updateStopwatchDisplay();
+    }
+
+    btnStopwatchToggle.addEventListener('click', () => {
+      if (stopwatchRunning) {
+        clearInterval(stopwatchInterval);
+        stopwatchRunning = false;
+        btnStopwatchToggle.textContent = 'Tiếp tục';
+        return;
       }
+      stopwatchRunning = true;
+      btnStopwatchToggle.textContent = 'Dừng';
+      stopwatchInterval = setInterval(() => {
+        stopwatchSeconds += 1;
+        updateStopwatchDisplay();
+      }, 1000);
     });
+
+    btnStopwatchReset.addEventListener('click', resetStopwatch);
+    updateStopwatchDisplay();
+
+    // Countdown môn thi - độc lập bên phải
+    let subjectCountdownTotal = 90 * 60, subjectCountdownLeft = subjectCountdownTotal, subjectCountdownInterval = null, subjectCountdownRunning = false;
+    const subjectSelect = document.getElementById('subjectSelect');
+    const subjectTimerLabel = document.getElementById('subjectTimerLabel');
+    const subjectTimerValue = document.getElementById('subjectTimerValue');
+    const btnSubjectStart = document.getElementById('btnSubjectStart');
+    const btnSubjectReset = document.getElementById('btnSubjectReset');
+    const subjectMap = {
+      90: 'Môn Toán',
+      120: 'Môn Ngữ Văn',
+      60: 'Môn Ngoại ngữ',
+      50: 'Khoa học',
+      15: 'Test nhanh'
+    };
+
+    function updateSubjectPreview(minutes) {
+      const label = subjectMap[minutes] || 'Bài thi';
+      subjectTimerLabel.textContent = `${label} có thời lượng:`;
+      subjectTimerValue.textContent = `${minutes} phút`;
+    }
+
+    function updateSubjectDisplay() {
+      const m = Math.floor(subjectCountdownLeft / 60);
+      const s = subjectCountdownLeft % 60;
+      subjectTimerValue.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function resetSubjectCountdown(minutes = parseInt(subjectSelect.value, 10)) {
+      clearInterval(subjectCountdownInterval);
+      subjectCountdownRunning = false;
+      subjectCountdownTotal = minutes * 60;
+      subjectCountdownLeft = subjectCountdownTotal;
+      updateSubjectPreview(minutes);
+      updateSubjectDisplay();
+      btnSubjectStart.textContent = 'Bắt đầu';
+    }
+
+    subjectSelect.addEventListener('change', () => {
+      const minutes = parseInt(subjectSelect.value, 10);
+      updateSubjectPreview(minutes);
+      resetSubjectCountdown(minutes);
+    });
+
+    btnSubjectStart.addEventListener('click', () => {
+      if (subjectCountdownRunning) {
+        clearInterval(subjectCountdownInterval);
+        subjectCountdownRunning = false;
+        btnSubjectStart.textContent = 'Tiếp tục';
+        return;
+      }
+      subjectCountdownRunning = true;
+      btnSubjectStart.textContent = 'Dừng';
+      subjectCountdownInterval = setInterval(() => {
+        if (subjectCountdownLeft > 0) {
+          subjectCountdownLeft -= 1;
+          updateSubjectDisplay();
+        } else {
+          clearInterval(subjectCountdownInterval);
+          subjectCountdownRunning = false;
+          btnSubjectStart.textContent = 'Bắt đầu';
+        }
+      }, 1000);
+    });
+
+    btnSubjectReset.addEventListener('click', () => resetSubjectCountdown(parseInt(subjectSelect.value, 10)));
+    updateSubjectPreview(parseInt(subjectSelect.value, 10));
+    resetSubjectCountdown();
 
     /* ----------------------------------------------------
        TÍNH NĂNG CHAT NỔI (UI LOGIC)
@@ -546,6 +617,66 @@
       return `Gửi thất bại: ${code}`;
     }
 
+    const quoteBox = document.getElementById('quoteBox');
+    const quoteText = document.getElementById('quoteText');
+    const quoteAuthor = document.getElementById('quoteAuthor');
+    const btnNewQuote = document.getElementById('btnNewQuote');
+    const motivationQuotes = [
+      { text: 'Nỗ lực hôm nay, huy hoàng ngày mai. Hãy cố gắng!', author: 'Khuyết danh' },
+      { text: 'Kỷ luật là cầu nối giữa mục tiêu và thành tựu.', author: 'Jim Rohn' },
+      { text: 'Bạn không cần xuất sắc ngay lập tức, chỉ cần không bỏ cuộc.', author: 'Khuyết danh' },
+      { text: 'Mỗi ngày học thêm một chút, tương lai sẽ khác rất nhiều.', author: 'Khuyết danh' },
+      { text: 'Không ai chạm tới đỉnh cao bằng cách đứng yên.', author: 'Khuyết danh' },
+      { text: 'Hôm nay cố gắng, ngày mai đỡ vất vả hơn.', author: 'Khuyết danh' },
+      { text: 'Thành công thích những người kiên trì hơn là bốc đồng.', author: 'Khuyết danh' },
+      { text: 'Đi chậm vẫn tốt hơn là không đi.', author: 'Khuyết danh' },
+      { text: 'Bạn đủ giỏi để bắt đầu, đủ bền để đi đến cuối.', author: 'Khuyết danh' },
+      { text: 'Đừng đợi động lực, hãy xây dựng thói quen.', author: 'Khuyết danh' },
+      { text: 'Mục tiêu lớn được hoàn thành từ những việc nhỏ lặp lại mỗi ngày.', author: 'Khuyết danh' },
+      { text: 'Một bước nhỏ hôm nay có thể đổi cả chặng đường mai sau.', author: 'Khuyết danh' }
+    ];
+
+    function getRandomQuote(currentText) {
+      if (motivationQuotes.length === 0) return { text: currentText, author: 'Khuyết danh' };
+      let next = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
+      while (motivationQuotes.length > 1 && next.text === currentText) {
+        next = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
+      }
+      return next;
+    }
+
+    btnNewQuote.addEventListener('click', () => {
+      const nextQuote = getRandomQuote(quoteText?.textContent?.replaceAll('"', '')?.trim() || '');
+      if (quoteBox) {
+        quoteBox.style.opacity = '0';
+        quoteBox.style.transform = 'translateY(6px)';
+      }
+      setTimeout(() => {
+        quoteText.textContent = `"${nextQuote.text}"`;
+        quoteAuthor.textContent = `- ${nextQuote.author}`;
+        if (quoteBox) {
+          quoteBox.style.opacity = '1';
+          quoteBox.style.transform = 'translateY(0)';
+        }
+      }, 160);
+    });
+
+    const btnPlayMusic = document.getElementById('btnPlayMusic');
+    const ytbInput = document.getElementById('ytbInput');
+    const ytbFrame = document.getElementById('ytbFrame');
+    function extractYouTubeId(url) {
+      const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+      if (match && match[1]) return match[1];
+      if (url.includes('v=')) return url.split('v=')[1].split('&')[0];
+      if (url.includes('youtu.be/')) return url.split('youtu.be/')[1].split('?')[0];
+      return url;
+    }
+    btnPlayMusic.addEventListener('click', () => {
+      const url = ytbInput.value.trim();
+      if (!url) return;
+      const id = extractYouTubeId(url);
+      ytbFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+    });
     chatName.addEventListener('change', () => {
       const lockedName = lockChatName();
       if (lockedName) {
