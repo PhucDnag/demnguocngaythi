@@ -850,58 +850,72 @@
       ytbFrame.style.border = '1px solid rgba(239, 68, 68, 0.45)';
       ytbFrame.style.background = 'rgba(239, 68, 68, 0.08)';
       ytbFrame.title = message;
-      console.warn(message);
-    }
-
-    function normalizeYouTubeUrl(url) {
-      return url.trim().replace(/^<|>$/g, '');
+      // Có thể hiển thị alert hoặc toast ở đây nếu muốn báo cho user
     }
 
     function extractYouTubeId(url) {
-      const cleaned = normalizeYouTubeUrl(url);
-      const patterns = [
-        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([A-Za-z0-9_-]{6,})/i,
-        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([A-Za-z0-9_-]{6,})/i,
-        /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([A-Za-z0-9_-]{6,})/i,
-        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]{6,})/i
-      ];
-      
-      for (const pattern of patterns) {
-        const match = cleaned.match(pattern);
-        if (match && match[1]) return match[1].replace(/[^A-Za-z0-9_-]/g, '');
+      // 1. Thêm https:// nếu link dán vào bị thiếu để hàm new URL() không bị lỗi
+      let cleanUrl = url.trim().replace(/^<|>$/g, '');
+      if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+        cleanUrl = 'https://' + cleanUrl;
       }
 
       try {
-        const parsed = new URL(cleaned);
-        const v = parsed.searchParams.get('v');
-        if (v) return v.replace(/[^A-Za-z0-9_-]/g, '');
-        const pathParts = parsed.pathname.split('/').filter(Boolean);
-        if (pathParts.length) {
-          const last = pathParts[pathParts.length - 1].split('?')[0].replace(/[^A-Za-z0-9_-]/g, '');
-          if (last.length >= 6) return last;
+        const parsed = new URL(cleanUrl);
+        // Phân tích link youtube.com
+        if (parsed.hostname.includes('youtube.com')) {
+          const v = parsed.searchParams.get('v');
+          if (v) return v.replace(/[^A-Za-z0-9_-]/g, '');
+          
+          if (parsed.pathname.startsWith('/embed/') || parsed.pathname.startsWith('/shorts/')) {
+            return parsed.pathname.split('/')[2].replace(/[^A-Za-z0-9_-]/g, '');
+          }
+        } 
+        // Phân tích link rút gọn youtu.be
+        else if (parsed.hostname.includes('youtu.be')) {
+          return parsed.pathname.slice(1).replace(/[^A-Za-z0-9_-]/g, '');
         }
-      } catch (_) {
-        // ignore
-      }
+      } catch (e) {}
 
-      return '';
+      // 2. Fallback bằng Regex cực mạnh (Bắt được mọi ID 11 ký tự)
+      const match = cleanUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?.*v=))([A-Za-z0-9_-]{11})/i);
+      return (match && match[1]) ? match[1] : '';
     }
 
-    btnPlayMusic.addEventListener('click', () => {
+    function playYouTubeVideo() {
       const url = ytbInput.value.trim();
       if (!url) return setMusicError('Vui lòng dán link YouTube hợp lệ.');
 
       const id = extractYouTubeId(url);
       if (!id || id.length < 6) {
-        return setMusicError('Không nhận diện được ID video. Hãy dán link YouTube chuẩn như youtu.be/ID hoặc youtube.com/watch?v=ID.');
+        return setMusicError('Không nhận diện được ID video. Hãy dán link chuẩn (VD: youtu.be/xyz).');
       }
 
-      const embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&origin=${encodeURIComponent(location.origin)}`;
-      ytbFrame.style.border = '1px solid var(--card-border)';
-      ytbFrame.style.background = 'var(--stat-bg)';
-      ytbFrame.title = 'YouTube video player';
-      ytbFrame.allow = 'autoplay; encrypted-media; picture-in-picture';
-      ytbFrame.src = embedUrl;
+      // Xóa src cũ để ép trình duyệt dọn bộ nhớ và tải mới hoàn toàn
+      ytbFrame.src = 'about:blank'; 
+
+      // Đặt độ trễ nhỏ để iframe kịp reset trước khi gán link mới
+      setTimeout(() => {
+        // Đã xóa origin=... và đổi mute=0 để có tiếng
+        const embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1`;
+        
+        ytbFrame.style.border = '1px solid var(--card-border)';
+        ytbFrame.style.background = 'var(--stat-bg)';
+        ytbFrame.title = 'YouTube video player';
+        ytbFrame.allow = 'autoplay; encrypted-media; picture-in-picture';
+        ytbFrame.src = embedUrl;
+      }, 50);
+    }
+
+    // Lắng nghe sự kiện click nút Phát
+    btnPlayMusic.addEventListener('click', playYouTubeVideo);
+
+    // Bổ sung: Cho phép bấm phím Enter trong ô input để mở nhạc luôn
+    ytbInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        playYouTubeVideo();
+      }
     });
 
     chatName.addEventListener('change', () => {
