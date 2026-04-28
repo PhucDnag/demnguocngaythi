@@ -8,6 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
   <style>
     /* HỆ THỐNG BIẾN CSS */
     :root {
@@ -31,6 +35,7 @@
       --eyebrow-text: #0369a1;
       --stat-bg: rgba(255, 255, 255, 0.6);
       --input-bg: #ffffff;
+      --msg-others: rgba(148, 163, 184, 0.2);
     }
 
     [data-theme="dark"] {
@@ -54,25 +59,20 @@
       --eyebrow-text: #bae6fd;
       --stat-bg: rgba(15, 23, 42, 0.55);
       --input-bg: rgba(15, 23, 42, 0.9);
+      --msg-others: rgba(148, 163, 184, 0.15);
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      min-height: 100vh;
-      background: var(--bg-gradient);
-      overflow-x: hidden;
+      margin: 0; font-family: 'Inter', sans-serif; color: var(--text);
+      min-height: 100vh; background: var(--bg-gradient); overflow-x: hidden;
       transition: background 0.4s ease, color 0.4s ease;
     }
 
     .ambient {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
+      position: fixed; inset: 0; pointer-events: none;
       background-image: radial-gradient(var(--muted) 1px, transparent 1px);
       background-size: 24px 24px;
       mask-image: linear-gradient(180deg, rgba(0,0,0,0.6), transparent 90%);
@@ -81,13 +81,7 @@
     }
     [data-theme="dark"] .ambient { opacity: 0.08; }
 
-    .container {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 28px 0 56px;
-      position: relative;
-      z-index: 1;
-    }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1; }
 
     /* HEADER */
     header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0 32px; }
@@ -96,40 +90,23 @@
     .brand h1 { margin: 0; font-size: 1.1rem; line-height: 1.2; }
     .brand p { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
 
-    .theme-toggle {
-      background: var(--card); border: 1px solid var(--card-border); color: var(--text);
-      width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
-      transition: all 0.3s ease;
-    }
+    .theme-toggle { background: var(--card); border: 1px solid var(--card-border); color: var(--text); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: grid; place-items: center; transition: all 0.3s ease; }
     .theme-toggle:hover { transform: scale(1.1) rotate(15deg); background: var(--bg-soft); }
     .theme-toggle svg { width: 20px; height: 20px; fill: currentColor; }
     [data-theme="dark"] .icon-moon { display: none; }
     [data-theme="light"] .icon-sun { display: none; }
 
     /* COMPONENT CHUNG */
-    .panel {
-      background: var(--bg-soft); border: 1px solid var(--card-border);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-radius: 28px; box-shadow: var(--shadow);
-    }
-    .btn {
-      appearance: none; border: 0; border-radius: 12px; padding: 12px 20px;
-      font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: all 0.2s ease;
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    }
+    .panel { background: var(--bg-soft); border: 1px solid var(--card-border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 28px; box-shadow: var(--shadow); }
+    .btn { appearance: none; border: 0; border-radius: 12px; padding: 12px 20px; font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
     .btn:active { transform: scale(0.96); }
     .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; }
     .btn-secondary { background: var(--stat-bg); color: var(--text); border: 1px solid var(--card-border); }
     .btn-danger { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--card-border); }
-    
-    input, select {
-      width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--card-border);
-      background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 0.95rem;
-      outline: none; transition: border-color 0.2s;
-    }
+    input, select { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
     input:focus, select:focus { border-color: var(--primary); }
 
-    /* HERO & COUNTDOWN */
+    /* HERO & TOOLS */
     .hero { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; }
     .countdown-card { padding: 36px; text-align: center; display: flex; flex-direction: column; align-items: center; }
     .countdown-card h2 { margin: 0 0 8px; font-size: 2rem; }
@@ -139,56 +116,88 @@
     .unit strong { display: block; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1; margin-bottom: 8px; color: var(--unit-text); }
     .unit span { color: var(--muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
 
-    /* TOOLS GRID */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
+    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
     .tool-card { padding: 28px; display: flex; flex-direction: column; gap: 16px; }
     .tool-card h3 { margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px; }
     .tool-card h3 span { font-size: 1.5rem; }
 
-    /* ĐỒNG HỒ LÀM BÀI */
-    .timer-display {
-      font-size: 4rem; font-weight: 800; font-variant-numeric: tabular-nums;
-      text-align: center; color: var(--primary); background: var(--stat-bg);
-      border-radius: 16px; padding: 20px; border: 1px solid var(--card-border);
-    }
+    .timer-display { font-size: 4rem; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; color: var(--primary); background: var(--stat-bg); border-radius: 16px; padding: 20px; border: 1px solid var(--card-border); }
     .timer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-    /* GÓC ÂM NHẠC */
-    .music-player iframe {
-      width: 100%; height: 180px; border-radius: 16px; border: 1px solid var(--card-border);
-      background: var(--stat-bg);
-    }
+    .music-player iframe { width: 100%; height: 180px; border-radius: 16px; border: 1px solid var(--card-border); background: var(--stat-bg); }
     .input-group { display: flex; gap: 8px; }
-
-    /* QUOTES */
-    .quote-box {
-      flex: 1; display: flex; flex-direction: column; justify-content: center;
-      padding: 24px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border);
-      text-align: center; font-style: italic; font-size: 1.1rem; line-height: 1.6;
-    }
+    .quote-box { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-align: center; font-style: italic; font-size: 1.1rem; line-height: 1.6; }
     .quote-author { display: block; margin-top: 12px; font-weight: 600; font-style: normal; color: var(--primary); font-size: 0.95rem; }
-
-    /* TIN TỨC */
     .news-list { display: flex; flex-direction: column; gap: 12px; list-style: none; padding: 0; margin: 0; }
-    .news-item {
-      padding: 16px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border);
-      text-decoration: none; color: inherit; transition: all 0.2s;
-    }
+    .news-item { padding: 16px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-decoration: none; color: inherit; transition: all 0.2s; }
     .news-item:hover { border-color: var(--primary); transform: translateX(4px); }
     .news-title { font-weight: 600; margin-bottom: 6px; display: block; }
     .news-date { font-size: 0.85rem; color: var(--muted); }
 
     footer { margin-top: 40px; color: var(--muted); text-align: center; font-size: 0.9rem; }
 
+    /* =========================================
+       NÚT CHAT NỔI (FAB) VÀ KHUNG CHAT
+    ========================================= */
+    .chat-fab {
+      position: fixed; bottom: 30px; right: 30px;
+      width: 65px; height: 65px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-2), var(--primary));
+      color: white; border: none; cursor: pointer;
+      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000; transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .chat-fab:hover { transform: scale(1.08) translateY(-4px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.5); }
+    .chat-fab svg { width: 32px; height: 32px; fill: currentColor; }
+
+    .chat-widget {
+      position: fixed; bottom: 110px; right: 30px;
+      width: 360px; height: 500px;
+      background: var(--bg-soft); border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px; box-shadow: var(--shadow);
+      z-index: 999; display: flex; flex-direction: column;
+      transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-origin: bottom right;
+    }
+    .chat-widget.active { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+
+    .chat-header {
+      padding: 18px 20px; border-bottom: 1px solid var(--card-border);
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(15, 23, 42, 0.03); border-radius: 24px 24px 0 0;
+    }
+    .chat-header h3 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+    .chat-header button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--muted); transition: color 0.2s; }
+    .chat-header button:hover { color: var(--danger-text); }
+
+    .chat-body {
+      flex: 1; padding: 20px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    
+    .msg-wrapper { display: flex; flex-direction: column; max-width: 85%; }
+    .msg-wrapper.self { align-self: flex-end; align-items: flex-end; }
+    .msg-wrapper.others { align-self: flex-start; align-items: flex-start; }
+    
+    .msg-sender { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+    .msg-bubble { padding: 10px 14px; border-radius: 16px; font-size: 0.95rem; line-height: 1.4; word-wrap: break-word; }
+    
+    .msg-wrapper.self .msg-bubble { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; border-bottom-right-radius: 4px; }
+    .msg-wrapper.others .msg-bubble { background: var(--msg-others); color: var(--text); border-bottom-left-radius: 4px; }
+
+    .chat-footer {
+      padding: 16px; border-top: 1px solid var(--card-border);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .chat-footer .input-row { display: flex; gap: 8px; }
+
     @media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr; } }
     @media (max-width: 640px) { 
       .timer { grid-template-columns: repeat(2, 1fr); }
-      .countdown-card { padding: 24px; }
-      .tool-card { padding: 20px; }
+      .chat-widget { width: calc(100vw - 40px); right: 20px; bottom: 100px; height: 60vh; }
+      .chat-fab { right: 20px; bottom: 20px; }
     }
   </style>
 </head>
@@ -198,10 +207,7 @@
     <header>
       <a class="brand" href="#top">
         <div class="logo">2K8</div>
-        <div>
-          <h1>Trạm Ôn Thi</h1>
-          <p>Đếm ngược & Tiện ích THPT</p>
-        </div>
+        <div><h1>Trạm Ôn Thi</h1><p>Đếm ngược & Tiện ích THPT</p></div>
       </a>
       <button id="themeToggle" class="theme-toggle" aria-label="Đổi giao diện">
         <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3zm1-9h-2v4h2V0zm0 20h-2v4h2v-4zM6.34 5.34L4.93 6.76l2.83 2.83 1.41-1.41-2.83-2.83zm14.14 14.14l-1.41 1.41-2.83-2.83 1.41-1.41 2.83 2.83zM24 11h-4v2h4v-2zM4 11H0v2h4v-2zm1.34 7.66l1.41 1.41 2.83-2.83-1.41-1.41-2.83 2.83zm14.14-14.14l1.41-1.41-2.83-2.83-1.41 1.41 2.83 2.83z"/></svg>
@@ -223,20 +229,18 @@
     </section>
 
     <section class="tools-grid">
-      
       <article class="panel tool-card">
         <h3><span>⏱️</span> Chế độ thi thử</h3>
         <select id="subjectSelect">
           <option value="90">Môn Toán (90 phút)</option>
           <option value="120">Môn Ngữ Văn (120 phút)</option>
           <option value="60">Môn Ngoại ngữ (60 phút)</option>
-          <option value="50">Vật lí / Hóa học / Sinh học (50 phút)</option>
-          <option value="50">Lịch sử / Địa lí / GDCD (50 phút)</option>
+          <option value="50">Khoa học (50 phút)</option>
           <option value="15">Test nhanh (15 phút)</option>
         </select>
         <div class="timer-display" id="examTimerDisplay">90:00</div>
         <div class="timer-controls">
-          <button class="btn btn-primary" id="btnExamToggle">Bắt đầu làm bài</button>
+          <button class="btn btn-primary" id="btnExamToggle">Bắt đầu</button>
           <button class="btn btn-danger" id="btnExamReset">Làm lại</button>
         </div>
       </article>
@@ -244,18 +248,18 @@
       <article class="panel tool-card">
         <h3><span>🎧</span> Trạm nhạc Lofi</h3>
         <div class="input-group">
-          <input type="text" id="ytbInput" placeholder="Dán link YouTube (VD: https://youtu.be/...)" />
+          <input type="text" id="ytbInput" placeholder="Dán link YouTube..." />
           <button class="btn btn-primary" id="btnPlayMusic">Phát</button>
         </div>
         <div class="music-player">
-          <iframe id="ytbFrame" src="https://www.youtube.com/embed/jfKfPfyJRdk?si=D3mG-9f_890qjZJ1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe id="ytbFrame" src="https://www.youtube.com/embed/jfKfPfyJRdk?si=D3mG-9f_890qjZJ1" frameborder="0" allowfullscreen></iframe>
         </div>
       </article>
 
       <article class="panel tool-card">
         <h3><span>🔥</span> Nạp năng lượng</h3>
         <div class="quote-box">
-          <span id="quoteText">"Nỗ lực hôm nay, huy hoàng ngày mai. Hãy cố gắng hết sức mình!"</span>
+          <span id="quoteText">"Nỗ lực hôm nay, huy hoàng ngày mai. Hãy cố gắng!"</span>
           <span class="quote-author" id="quoteAuthor">- Khuyết danh</span>
         </div>
         <button class="btn btn-secondary" id="btnNewQuote">Đổi câu khác</button>
@@ -264,197 +268,381 @@
       <article class="panel tool-card">
         <h3><span>📰</span> Bảng tin sĩ tử</h3>
         <ul class="news-list">
-          <a href="#" class="news-item">
-            <span class="news-title">📝 Bộ GD&ĐT dự kiến công bố đề thi minh họa THPT 2026</span>
-            <span class="news-date">Cập nhật gần đây</span>
-          </a>
-          <a href="#" class="news-item">
-            <span class="news-title">🎯 Đánh giá năng lực: Tổng hợp các trường đại học sử dụng kết quả</span>
-            <span class="news-date">Cập nhật gần đây</span>
-          </a>
-          <a href="#" class="news-item">
-            <span class="news-title">💡 5 phương pháp ôn thi Giai đoạn nước rút hiệu quả nhất</span>
-            <span class="news-date">Cập nhật gần đây</span>
-          </a>
+          <a href="#" class="news-item"><span class="news-title">📝 Bộ GD&ĐT dự kiến công bố đề thi minh họa</span><span class="news-date">Hôm nay</span></a>
+          <a href="#" class="news-item"><span class="news-title">🎯 Các trường ĐH công bố phương án tuyển sinh</span><span class="news-date">Hôm qua</span></a>
         </ul>
       </article>
-
     </section>
 
-    <footer>
-      © 2026 Trạm Ôn Thi THPT — Chúc bạn học tập thật tốt và đạt kết quả cao!
-    </footer>
+    <footer>© 2026 Trạm Ôn Thi THPT — Chúc bạn học tập thật tốt!</footer>
   </main>
 
+  <button class="chat-fab" id="chatFab" aria-label="Mở khung chat">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z" />
+      <path d="M7 9H17V11H7V9ZM7 13H14V15H7V13Z" />
+    </svg>
+  </button>
+
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+      <h3>💬 Chat Sĩ Tử 2K8</h3>
+      <button id="closeChat" aria-label="Đóng">✖</button>
+    </div>
+    <div class="chat-body" id="chatBox">
+      <div style="text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 10px;">
+        Chào mừng bạn vào nhóm chat. Hãy giữ lịch sự nhé!
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatName" placeholder="Tên của bạn (VD: Nam 2k8)" maxlength="20" />
+      <div id="chatNameHint" style="font-size:0.8rem;color:var(--muted);margin-top:6px;">Nhập tên một lần duy nhất, sau khi xác nhận sẽ bị ẩn để tránh đổi tên nhiều lần.</div>
+      <div class="input-row">
+        <input type="text" id="chatInput" placeholder="Nhập tin nhắn..." autocomplete="off" />
+        <button class="btn btn-primary" id="btnSendChat">Gửi</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="welcomePopup" style="position:fixed;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;">
+    <div style="width:min(92vw,560px);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(248,250,252,.96));box-shadow:0 30px 90px rgba(0,0,0,.28);padding:0;color:#0f172a;border:1px solid rgba(255,255,255,.5);overflow:hidden;position:relative;">
+      <div style="height:140px;background:linear-gradient(135deg,#2563eb,#8b5cf6);position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:auto -30px -40px auto;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.14);"></div>
+        <div style="position:absolute;inset:22px 24px auto 24px;display:flex;justify-content:space-between;align-items:start;gap:12px;">
+          <div>
+            <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.02em;">THÔNG BÁO</div>
+            <h2 style="margin:14px 0 0;font-size:1.55rem;line-height:1.25;color:#fff;">Chào mừng sĩ tử 2K8</h2>
+            <p style="margin:8px 0 0;color:rgba(255,255,255,.88);line-height:1.55;max-width:420px;">Cùng nhau giữ nhịp ôn tập thật tốt, vững tâm trước kỳ thi và tiến gần hơn tới mục tiêu đại học.</p>
+          </div>
+          <button id="closeWelcomePopup" aria-label="Đóng popup" style="border:none;background:rgba(255,255,255,.18);color:#fff;width:42px;height:42px;border-radius:999px;font-size:1.1rem;cursor:pointer;backdrop-filter:blur(8px);">✕</button>
+        </div>
+      </div>
+      <div style="padding:22px 24px 24px;">
+        <div id="motivationCard" style="padding:18px 18px 16px;border-radius:20px;background:linear-gradient(180deg,rgba(14,165,233,.08),rgba(139,92,246,.08));border:1px solid rgba(99,102,241,.14);margin-bottom:16px;">
+          <div style="font-size:.82rem;font-weight:800;color:#2563eb;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">Câu truyền động lực</div>
+          <div id="motivationText" style="font-size:1.08rem;line-height:1.7;font-weight:600;color:#0f172a;min-height:76px;">Bạn không cần giỏi ngay hôm nay, chỉ cần tốt hơn hôm qua một chút.</div>
+          <div style="display:flex;justify-content:flex-end;margin-top:14px;">
+            <button id="btnChangeMotivation" style="border:none;background:#0f172a;color:#fff;padding:10px 14px;border-radius:14px;cursor:pointer;font-weight:700;">Đổi câu khác</button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:16px;border-radius:18px;background:#f8fafc;border:1px solid rgba(148,163,184,.18);margin-bottom:16px;">
+          <div style="width:42px;height:42px;border-radius:14px;background:rgba(37,99,235,.12);display:grid;place-items:center;font-size:1.1rem;flex:0 0 auto;">👥</div>
+          <div style="line-height:1.6;">
+            <div style="font-weight:800;margin-bottom:4px;">Group Facebook</div>
+            <a href="https://www.facebook.com/groups/1993914981519042" target="_blank" rel="noopener noreferrer" style="color:#2563eb;font-weight:700;word-break:break-word;">https://www.facebook.com/groups/1993914981519042</a>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;">
+          <button id="dontShowWelcomeAgain" style="border:none;background:#e2e8f0;color:#0f172a;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;">Không hiện lại</button>
+          <button id="closeWelcomePopup2" style="border:none;background:linear-gradient(135deg,#2563eb,#7c3aed);color:white;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700;">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    /* =========================================
-       1. CẤU HÌNH GIAO DIỆN DARK/LIGHT MODE
-    ========================================= */
+    /* ----------------------------------------------------
+       CÁC TÍNH NĂNG TRƯỚC ĐÓ (Giữ nguyên không thay đổi)
+    ----------------------------------------------------- */
+    // Dark/Light Mode
     const themeToggleBtn = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'light';
     htmlElement.setAttribute('data-theme', savedTheme);
-
     themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = htmlElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      const newTheme = htmlElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       htmlElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
     });
 
-    /* =========================================
-       2. BỘ ĐẾM NGƯỢC NGÀY THI
-    ========================================= */
-    const targetDate = new Date('2026-06-25T07:00:00+07:00'); // Sửa ngày thi ở đây
-    const targetDateText = document.getElementById('targetDateText');
-    const daysEl = document.getElementById('days'), hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes'), secondsEl = document.getElementById('seconds');
+    // Welcome popup for group + donate
+    const welcomePopup = document.getElementById('welcomePopup');
+    const closeWelcomePopup = document.getElementById('closeWelcomePopup');
+    const closeWelcomePopup2 = document.getElementById('closeWelcomePopup2');
+    const dontShowWelcomeAgain = document.getElementById('dontShowWelcomeAgain');
+    const btnChangeMotivation = document.getElementById('btnChangeMotivation');
+    const motivationText = document.getElementById('motivationText');
+    const hideWelcome = localStorage.getItem('hide_welcome_popup') === '1';
 
-    targetDateText.textContent = `Mốc thời gian: ${targetDate.toLocaleDateString('vi-VN')} - 07:00 AM`;
-
-    function updateMainCountdown() {
-      const diff = targetDate.getTime() - new Date().getTime();
-      if (diff <= 0) {
-        daysEl.textContent = '0'; hoursEl.textContent = '0'; minutesEl.textContent = '0'; secondsEl.textContent = '0';
-        targetDateText.textContent = 'Kỳ thi đã diễn ra. Chúc bạn thành công!';
-        return;
-      }
-      const totalSecs = Math.floor(diff / 1000);
-      daysEl.textContent = String(Math.floor(totalSecs / 86400)).padStart(2, '0');
-      hoursEl.textContent = String(Math.floor((totalSecs % 86400) / 3600)).padStart(2, '0');
-      minutesEl.textContent = String(Math.floor((totalSecs % 3600) / 60)).padStart(2, '0');
-      secondsEl.textContent = String(totalSecs % 60).padStart(2, '0');
-    }
-    updateMainCountdown();
-    setInterval(updateMainCountdown, 1000);
-
-    /* =========================================
-       3. ĐỒNG HỒ LÀM BÀI (EXAM TIMER)
-    ========================================= */
-    let examTimeTotal = 90 * 60; // Tính bằng giây
-    let examTimeLeft = examTimeTotal;
-    let examInterval = null;
-    let isExamRunning = false;
-
-    const subjectSelect = document.getElementById('subjectSelect');
-    const examTimerDisplay = document.getElementById('examTimerDisplay');
-    const btnExamToggle = document.getElementById('btnExamToggle');
-    const btnExamReset = document.getElementById('btnExamReset');
-
-    function formatTime(seconds) {
-      const m = Math.floor(seconds / 60);
-      const s = seconds % 60;
-      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-    }
-
-    function updateExamDisplay() {
-      examTimerDisplay.textContent = formatTime(examTimeLeft);
-      // Đổi màu đỏ khi sắp hết giờ (dưới 5 phút)
-      if (examTimeLeft <= 300 && examTimeLeft > 0) {
-        examTimerDisplay.style.color = 'var(--danger-text)';
-      } else {
-        examTimerDisplay.style.color = 'var(--primary)';
-      }
-    }
-
-    subjectSelect.addEventListener('change', (e) => {
-      clearInterval(examInterval);
-      isExamRunning = false;
-      btnExamToggle.textContent = "Bắt đầu làm bài";
-      btnExamToggle.className = "btn btn-primary";
-      examTimeTotal = parseInt(e.target.value) * 60;
-      examTimeLeft = examTimeTotal;
-      updateExamDisplay();
-    });
-
-    btnExamToggle.addEventListener('click', () => {
-      if (isExamRunning) {
-        // Tạm dừng
-        clearInterval(examInterval);
-        isExamRunning = false;
-        btnExamToggle.textContent = "Tiếp tục";
-        btnExamToggle.className = "btn btn-primary";
-      } else {
-        // Bắt đầu
-        isExamRunning = true;
-        btnExamToggle.textContent = "Tạm dừng";
-        btnExamToggle.className = "btn btn-secondary";
-        examInterval = setInterval(() => {
-          if (examTimeLeft > 0) {
-            examTimeLeft--;
-            updateExamDisplay();
-          } else {
-            clearInterval(examInterval);
-            isExamRunning = false;
-            btnExamToggle.textContent = "Hết giờ!";
-            btnExamToggle.disabled = true;
-            alert("Đã hết thời gian làm bài!");
-          }
-        }, 1000);
-      }
-    });
-
-    btnExamReset.addEventListener('click', () => {
-      clearInterval(examInterval);
-      isExamRunning = false;
-      examTimeLeft = examTimeTotal;
-      btnExamToggle.textContent = "Bắt đầu làm bài";
-      btnExamToggle.className = "btn btn-primary";
-      btnExamToggle.disabled = false;
-      updateExamDisplay();
-    });
-
-    // Khởi tạo ban đầu
-    updateExamDisplay();
-
-    /* =========================================
-       4. GÓC ÂM NHẠC (YOUTUBE PLAYER)
-    ========================================= */
-    const ytbInput = document.getElementById('ytbInput');
-    const btnPlayMusic = document.getElementById('btnPlayMusic');
-    const ytbFrame = document.getElementById('ytbFrame');
-
-    // Hàm lấy ID video YouTube từ link
-    function getYouTubeID(url) {
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-      const match = url.match(regExp);
-      return (match && match[2].length === 11) ? match[2] : null;
-    }
-
-    btnPlayMusic.addEventListener('click', () => {
-      const url = ytbInput.value.trim();
-      const videoID = getYouTubeID(url);
-      if (videoID) {
-        ytbFrame.src = `https://www.youtube.com/embed/${videoID}?autoplay=1`;
-      } else {
-        alert("Vui lòng nhập link YouTube hợp lệ!");
-      }
-    });
-
-    /* =========================================
-       5. TRẠM TRUYỀN ĐỘNG LỰC
-    ========================================= */
-    const quotes = [
-      { text: "Áp lực tạo ra kim cương.", author: "Khuyết danh" },
-      { text: "Cách để bắt đầu là ngừng nói và bắt tay vào làm.", author: "Walt Disney" },
-      { text: "Thiên tài 1% là cảm hứng và 99% là mồ hôi.", author: "Thomas Edison" },
-      { text: "Đừng đếm những gì bạn đã mất, hãy trân trọng những gì bạn đang có.", author: "Khuyết danh" },
-      { text: "Không có bí mật nào cho sự thành công. Đó là kết quả của sự chuẩn bị và làm việc chăm chỉ.", author: "Colin Powell" },
-      { text: "Trái ngọt của học tập thường rất đắng ở giai đoạn gieo mầm.", author: "Khuyết danh" },
-      { text: "Hôm nay đọc sách, ngày mai đếm tiền. Cố lên!", author: "Vui vẻ" }
+    const motivationQuotes = [
+      'Bạn không cần giỏi ngay hôm nay, chỉ cần tốt hơn hôm qua một chút.',
+      'Mỗi giờ học là một bước gần hơn tới ước mơ.',
+      'Khi bạn muốn bỏ cuộc, hãy nhớ lý do mình bắt đầu.',
+      'Đi chậm cũng được, miễn là bạn không dừng lại.',
+      'Kỷ luật hôm nay sẽ tạo nên tự do ngày mai.',
+      'Không ai thành công chỉ nhờ may mắn, mọi thứ đều đến từ nỗ lực.',
+      'Một ngày cố gắng nghiêm túc sẽ đổi lại tương lai rực rỡ hơn.',
+      'Đừng sợ chậm, chỉ sợ bạn đứng yên quá lâu.',
+      'Thi cử chỉ là một chặng đường, còn bản lĩnh là thứ theo bạn cả đời.',
+      'Bạn hoàn toàn có thể làm được, miễn là tiếp tục tiến lên.'
     ];
 
-    const quoteText = document.getElementById('quoteText');
-    const quoteAuthor = document.getElementById('quoteAuthor');
-    const btnNewQuote = document.getElementById('btnNewQuote');
-
-    function randomQuote() {
-      const randIndex = Math.floor(Math.random() * quotes.length);
-      quoteText.textContent = `"${quotes[randIndex].text}"`;
-      quoteAuthor.textContent = `- ${quotes[randIndex].author}`;
+    function getRandomMotivation(current) {
+      if (motivationQuotes.length === 1) return motivationQuotes[0];
+      let next = current;
+      while (next === current) {
+        next = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
+      }
+      return next;
     }
 
-    btnNewQuote.addEventListener('click', randomQuote);
+    if (motivationText) {
+      motivationText.textContent = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
+    }
+
+    if (!hideWelcome) {
+      welcomePopup.style.display = 'flex';
+    }
+
+    function closeWelcome() {
+      welcomePopup.style.display = 'none';
+    }
+
+    closeWelcomePopup.addEventListener('click', closeWelcome);
+    closeWelcomePopup2.addEventListener('click', closeWelcome);
+    dontShowWelcomeAgain.addEventListener('click', () => {
+      localStorage.setItem('hide_welcome_popup', '1');
+      closeWelcome();
+    });
+    btnChangeMotivation.addEventListener('click', () => {
+      if (!motivationText) return;
+      motivationText.style.opacity = '0';
+      setTimeout(() => {
+        motivationText.textContent = getRandomMotivation(motivationText.textContent.trim());
+        motivationText.style.opacity = '1';
+      }, 160);
+    });
+    welcomePopup.addEventListener('click', (e) => {
+      if (e.target === welcomePopup) closeWelcome();
+    });
+
+    // Countdown
+    const targetDate = new Date('2026-06-25T07:00:00+07:00');
+    document.getElementById('targetDateText').textContent = `Mốc: ${targetDate.toLocaleDateString('vi-VN')} - 07:00 AM`;
+    setInterval(() => {
+      const diff = targetDate.getTime() - new Date().getTime();
+      if (diff > 0) {
+        const t = Math.floor(diff / 1000);
+        document.getElementById('days').textContent = String(Math.floor(t / 86400)).padStart(2, '0');
+        document.getElementById('hours').textContent = String(Math.floor((t % 86400) / 3600)).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(Math.floor((t % 3600) / 60)).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(t % 60).padStart(2, '0');
+      }
+    }, 1000);
+
+    // Exam Timer
+    let examTimeTotal = 90 * 60, examTimeLeft = examTimeTotal, examInterval = null, isExamRunning = false;
+    const examDisplay = document.getElementById('examTimerDisplay'), btnToggle = document.getElementById('btnExamToggle');
+    function updateExamDisplay() {
+      const m = Math.floor(examTimeLeft / 60), s = examTimeLeft % 60;
+      examDisplay.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+    document.getElementById('btnExamToggle').addEventListener('click', () => {
+      if(isExamRunning){ clearInterval(examInterval); isExamRunning=false; btnToggle.textContent="Tiếp tục"; }
+      else { isExamRunning=true; btnToggle.textContent="Tạm dừng"; 
+        examInterval = setInterval(()=> { if(examTimeLeft>0){examTimeLeft--; updateExamDisplay();} else {clearInterval(examInterval);} }, 1000);
+      }
+    });
+
+    /* ----------------------------------------------------
+       TÍNH NĂNG CHAT NỔI (UI LOGIC)
+    ----------------------------------------------------- */
+    const chatFab = document.getElementById('chatFab');
+    const chatWidget = document.getElementById('chatWidget');
+    const closeChat = document.getElementById('closeChat');
+    
+    // Mở / Đóng khung chat
+    chatFab.addEventListener('click', () => chatWidget.classList.add('active'));
+    closeChat.addEventListener('click', () => chatWidget.classList.remove('active'));
+
+    /* ----------------------------------------------------
+       KẾT NỐI FIREBASE REALTIME DATABASE
+    ----------------------------------------------------- */
+    // ⚠️ HÃY THAY ĐOẠN CẤU HÌNH DƯỚI ĐÂY BẰNG CẤU HÌNH CỦA BẠN (Xem Hướng dẫn)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCCLwXwAffSc5c03SLvrGgJmBIhhjg2-4g",
+      authDomain: "countdownthpt-6823b.firebaseapp.com",
+      databaseURL: "https://countdownthpt-6823b-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "countdownthpt-6823b",
+      storageBucket: "countdownthpt-6823b.firebasestorage.app",
+      messagingSenderId: "385637956666",
+      appId: "1:385637956666:web:9973dbc8710266aa3b8903",
+      measurementId: "G-GP743V12WW"
+    };
+
+    const chatBox = document.getElementById('chatBox');
+    const chatInput = document.getElementById('chatInput');
+    const chatName = document.getElementById('chatName');
+    const btnSendChat = document.getElementById('btnSendChat');
+
+    const savedChatName = localStorage.getItem('chat_user_name') || '';
+    const chatNameHint = document.getElementById('chatNameHint');
+
+    if (savedChatName) {
+      chatName.value = savedChatName;
+      chatName.disabled = true;
+      chatName.style.display = 'none';
+      if (chatNameHint) chatNameHint.style.display = 'none';
+    }
+
+    function lockChatName() {
+      const name = chatName.value.trim();
+      if (!name) return null;
+      localStorage.setItem('chat_user_name', name);
+      chatName.disabled = true;
+      chatName.style.display = 'none';
+      if (chatNameHint) chatNameHint.style.display = 'none';
+      return name;
+    }
+
+    function getChatName() {
+      return localStorage.getItem('chat_user_name') || chatName.value.trim() || 'Ẩn danh';
+    }
+
+    function appendMessage(name, text, type) {
+      const msgWrapper = document.createElement('div');
+      msgWrapper.className = `msg-wrapper ${type}`;
+
+      const safeName = document.createElement('span');
+      safeName.className = 'msg-sender';
+      safeName.textContent = name;
+
+      const safeBubble = document.createElement('div');
+      safeBubble.className = 'msg-bubble';
+      safeBubble.textContent = text;
+
+      msgWrapper.appendChild(safeName);
+      msgWrapper.appendChild(safeBubble);
+      chatBox.appendChild(msgWrapper);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      updateChatStatus('Đã cập nhật tin nhắn realtime.');
+    }
+
+    const chatStatus = document.createElement('div');
+    chatStatus.style.cssText = 'font-size:0.78rem;color:var(--muted);text-align:center;padding:2px 0 0;';
+    chatStatus.textContent = 'Đang kết nối realtime...';
+    chatBox.appendChild(chatStatus);
+
+    function updateChatStatus(text) {
+      chatStatus.textContent = text;
+    }
+
+    function appendSystemMessage(text) {
+      const msg = document.createElement('div');
+      msg.style.cssText = 'text-align:center;color:var(--muted);font-size:0.85rem;padding:8px 12px;';
+      msg.textContent = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function hideIntroBlocks() {
+      if (chatNameHint) chatNameHint.style.display = 'none';
+    }
+
+    function getFirestoreLikeErrorMessage(error) {
+      const code = error?.code || error?.message || 'unknown';
+      if (String(code).includes('permission-denied')) return 'Firebase đang chặn quyền ghi. Hãy mở Rules Realtime Database cho phép đọc/ghi hoặc thêm xác thực phù hợp.';
+      if (String(code).includes('network')) return 'Không thể kết nối mạng tới Firebase. Hãy kiểm tra internet hoặc cấu hình databaseURL.';
+      return `Gửi thất bại: ${code}`;
+    }
+
+    chatName.addEventListener('change', () => {
+      const lockedName = lockChatName();
+      if (lockedName) {
+        hideIntroBlocks();
+        appendSystemMessage(`Tên người dùng đã được lưu là "${lockedName}".`);
+      }
+    });
+
+    chatName.addEventListener('blur', () => {
+      if (!localStorage.getItem('chat_user_name')) {
+        lockChatName();
+        hideIntroBlocks();
+      }
+    });
+
+    let chatRef = null;
+    try {
+      firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+      chatRef = database.ref('public_chat');
+
+      chatRef.on('child_added', (snapshot) => {
+        const data = snapshot.val() || {};
+        const currentName = getChatName();
+        const msgType = (data.name === currentName) ? 'self' : 'others';
+        appendMessage(data.name || 'Ẩn danh', data.text || '', msgType);
+      }, (error) => {
+        console.error('Firebase realtime error:', error);
+        updateChatStatus('Kết nối realtime lỗi.');
+        appendSystemMessage(getFirestoreLikeErrorMessage(error));
+      });
+
+      chatRef.on('value', (snapshot) => {
+        if (!snapshot.exists()) {
+          appendSystemMessage('Chưa có tin nhắn nào. Hãy là người đầu tiên gửi tin!');
+        }
+        updateChatStatus('Đã kết nối Firebase Realtime Database.');
+      }, (error) => {
+        console.error('Firebase value listener error:', error);
+        updateChatStatus('Không thể đọc dữ liệu realtime.');
+      });
+    } catch (error) {
+      console.error('Firebase init error:', error);
+      appendSystemMessage('Firebase chưa sẵn sàng, chat realtime tạm thời không hoạt động.');
+    }
+
+    async function sendMessage() {
+      const text = chatInput.value.trim();
+      const name = lockChatName() || getChatName();
+
+      if (!chatRef) {
+        appendSystemMessage('Chat chưa kết nối được.');
+        updateChatStatus('Chưa kết nối Firebase.');
+        return;
+      }
+
+      if (text === '') return;
+
+      hideIntroBlocks();
+      btnSendChat.disabled = true;
+      btnSendChat.textContent = 'Đang gửi...';
+      updateChatStatus('Đang gửi tin nhắn...');
+
+      const messagePayload = {
+        name,
+        text,
+        timestamp: Date.now(),
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        const result = await chatRef.push(messagePayload);
+        console.log('Message sent:', result?.key || 'ok');
+        chatInput.value = '';
+        updateChatStatus('Tin nhắn đã gửi thành công.');
+      } catch (error) {
+        console.error('Send message failed:', error);
+        appendSystemMessage(getFirestoreLikeErrorMessage(error));
+        updateChatStatus('Gửi thất bại, vui lòng thử lại.');
+      } finally {
+        btnSendChat.disabled = false;
+        btnSendChat.textContent = 'Gửi';
+      }
+    }
+
+    function bindSendEvents() {
+      btnSendChat.addEventListener('click', sendMessage);
+      chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+    }
+
+    bindSendEvents();
+
   </script>
 </body>
 </html>
