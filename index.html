@@ -304,8 +304,14 @@
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       transform-origin: bottom right;
     }
-    .chat-widget.active { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto;
+    .chat-widget.active { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+    .chat-overlay {
+      position: fixed; inset: 0; background: rgba(2, 6, 23, 0.42);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
     }
+    .chat-overlay.active { opacity: 1; pointer-events: auto; }
+    .chat-widget.active ~ .chat-fab { opacity: 1; }
 
     .chat-header {
       padding: 18px 20px; border-bottom: 1px solid var(--card-border);
@@ -375,8 +381,13 @@
       .quote-box { padding: 18px; min-height: 130px; font-size: 0.98rem; }
       .quote-author { font-size: 2.85rem; }
       .news-item { padding: 14px; }
-      .chat-widget { width: calc(100vw - 16px); right: 8px; bottom: 86px; height: 62vh; }
+      .chat-widget { width: 100vw; height: 100vh; right: 0; bottom: 0; border-radius: 0; transform: translateY(100%); }
+      .chat-widget.active { transform: translateY(0); }
+      .chat-header { padding-top: max(18px, env(safe-area-inset-top)); }
+      .chat-body { padding-bottom: 12px; }
+      .chat-footer { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
       .chat-fab { right: 14px; bottom: 14px; width: 56px; height: 56px; }
+      .chat-widget.active ~ .chat-fab { opacity: 0; pointer-events: none; }
     }
   </style>
 </head>
@@ -498,6 +509,7 @@
     </svg>
   </button>
 
+  <div class="chat-overlay" id="chatOverlay"></div>
   <div class="chat-widget" id="chatWidget">
     <div class="chat-header">
       <h3>💬 Kênh Chat Cộng Đồng</h3>
@@ -739,11 +751,29 @@
     ----------------------------------------------------- */
     const chatFab = document.getElementById('chatFab');
     const chatWidget = document.getElementById('chatWidget');
+    const chatOverlay = document.getElementById('chatOverlay');
     const closeChat = document.getElementById('closeChat');
     
+    function openChat() {
+      chatWidget.classList.add('active');
+      chatOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (window.matchMedia('(max-width: 640px)').matches) {
+        chatFab.style.display = 'none';
+      }
+    }
+
+    function closeChatWidget() {
+      chatWidget.classList.remove('active');
+      chatOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      chatFab.style.display = '';
+    }
+
     // Mở / Đóng khung chat
-    chatFab.addEventListener('click', () => chatWidget.classList.add('active'));
-    closeChat.addEventListener('click', () => chatWidget.classList.remove('active'));
+    chatFab.addEventListener('click', openChat);
+    closeChat.addEventListener('click', closeChatWidget);
+    chatOverlay.addEventListener('click', closeChatWidget);
 
     /* ----------------------------------------------------
        KẾT NỐI FIREBASE REALTIME DATABASE
