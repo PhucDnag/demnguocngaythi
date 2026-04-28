@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
   <style>
@@ -66,7 +67,8 @@
     html { scroll-behavior: smooth; }
     
     body {
-      margin: 0; font-family: 'Inter', sans-serif; color: var(--text);
+      margin: 0;
+      font-family: 'Inter', sans-serif; color: var(--text);
       min-height: 100vh; background: var(--bg-gradient); overflow-x: hidden;
       transition: background 0.4s ease, color 0.4s ease;
     }
@@ -81,47 +83,79 @@
     }
     [data-theme="dark"] .ambient { opacity: 0.08; }
 
-    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1; }
+    .container { width: min(1120px, calc(100% - 32px));
+      margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1;
+    }
 
     /* HEADER */
-    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0 32px; }
-    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
-    .logo { width: 48px; height: 48px; border-radius: 16px; background: linear-gradient(135deg, var(--primary), var(--primary-2)); display: grid; place-items: center; font-weight: 800; color: white; }
-    .brand h1 { margin: 0; font-size: 1.1rem; line-height: 1.2; }
-    .brand p { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 8px 0 32px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;
+    }
+    .logo { width: 48px; height: 48px; border-radius: 16px; background: linear-gradient(135deg, var(--primary), var(--primary-2)); display: grid; place-items: center;
+      font-weight: 800; color: white; }
+    .brand h1 { margin: 0; font-size: 1.1rem; line-height: 1.2;
+    }
+    .brand p { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem;
+    }
 
-    .theme-toggle { background: var(--card); border: 1px solid var(--card-border); color: var(--text); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: grid; place-items: center; transition: all 0.3s ease; }
-    .theme-toggle:hover { transform: scale(1.1) rotate(15deg); background: var(--bg-soft); }
-    .theme-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+    .theme-toggle { background: var(--card); border: 1px solid var(--card-border); color: var(--text); width: 44px; height: 44px; border-radius: 50%;
+      cursor: pointer; display: grid; place-items: center; transition: all 0.3s ease; }
+    .theme-toggle:hover { transform: scale(1.1) rotate(15deg);
+      background: var(--bg-soft); }
+    .theme-toggle svg { width: 20px; height: 20px; fill: currentColor;
+    }
     [data-theme="dark"] .icon-moon { display: none; }
-    [data-theme="light"] .icon-sun { display: none; }
+    [data-theme="light"] .icon-sun { display: none;
+    }
 
     /* COMPONENT CHUNG */
-    .panel { background: var(--bg-soft); border: 1px solid var(--card-border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 28px; box-shadow: var(--shadow); }
-    .btn { appearance: none; border: 0; border-radius: 12px; padding: 12px 20px; font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-    .btn:active { transform: scale(0.96); }
+    .panel { background: var(--bg-soft); border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 28px; box-shadow: var(--shadow); }
+    .btn { appearance: none; border: 0; border-radius: 12px;
+      padding: 12px 20px; font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: all 0.2s ease; display: inline-flex; align-items: center;
+      justify-content: center; gap: 8px; }
+    .btn:active { transform: scale(0.96);
+    }
     .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; }
-    .btn-secondary { background: var(--stat-bg); color: var(--text); border: 1px solid var(--card-border); }
-    .btn-danger { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--card-border); }
-    input, select { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-    input:focus, select:focus { border-color: var(--primary); }
+    .btn-secondary { background: var(--stat-bg);
+      color: var(--text); border: 1px solid var(--card-border); }
+    .btn-danger { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--card-border);
+    }
+    input, select { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--card-border); background: var(--input-bg);
+      color: var(--text); font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+    input:focus, select:focus { border-color: var(--primary);
+    }
 
     /* HERO & TOOLS */
-    .hero { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; }
-    .countdown-card { padding: 36px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-    .countdown-card h2 { margin: 0 0 8px; font-size: 2rem; }
-    .countdown-card p { margin: 0 0 24px; color: var(--muted); }
-    .timer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: 100%; max-width: 800px; }
-    .unit { padding: 24px 16px; border-radius: 24px; background: var(--unit-bg); border: 1px solid var(--card-border); text-align: center;}
-    .unit strong { display: block; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1; margin-bottom: 8px; color: var(--unit-text); }
-    .unit span { color: var(--muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+    .hero { display: grid; grid-template-columns: 1fr; gap: 24px;
+      margin-bottom: 24px; }
+    .countdown-card { padding: 36px; text-align: center; display: flex; flex-direction: column; align-items: center;
+    }
+    .countdown-card h2 { margin: 0 0 8px; font-size: 2rem;
+    }
+    .countdown-card p { margin: 0 0 24px; color: var(--muted);
+    }
+    .timer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: 100%; max-width: 800px;
+    }
+    .unit { padding: 24px 16px; border-radius: 24px; background: var(--unit-bg); border: 1px solid var(--card-border);
+      text-align: center;}
+    .unit strong { display: block; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1; margin-bottom: 8px;
+      color: var(--unit-text); }
+    .unit span { color: var(--muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
+    }
 
-    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .tool-card { padding: 28px; display: flex; flex-direction: column; gap: 16px; }
-    .tool-card h3 { margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    }
+    .tool-card { padding: 28px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .tool-card h3 { margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px;
+    }
     .tool-card h3 span { font-size: 1.5rem; }
 
-    .timer-tabs { display: flex; gap: 10px; padding: 6px; background: var(--stat-bg); border: 1px solid var(--card-border); border-radius: 18px; }
+    .timer-tabs { display: flex; gap: 10px;
+      padding: 6px; background: var(--stat-bg); border: 1px solid var(--card-border); border-radius: 18px;
+    }
     .timer-tab {
       flex: 1;
       border: 0;
@@ -137,9 +171,11 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    .timer-tab.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; box-shadow: 0 10px 24px rgba(99,102,241,.24); }
+    .timer-tab.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; box-shadow: 0 10px 24px rgba(99,102,241,.24);
+    }
     .timer-panel { display: none; }
-    .timer-panel.active { display: flex; }
+    .timer-panel.active { display: flex;
+    }
 
     .timer-display {
       font-family: 'Inter', sans-serif;
@@ -166,40 +202,60 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    .timer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .timer-controls .btn { width: 100%; }
-    .music-player iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; min-height: 220px; border-radius: 16px; border: 1px solid var(--card-border); background: var(--stat-bg); }
-    .preset-times { display: flex; flex-wrap: wrap; gap: 8px; }
-    .preset-time-btn { padding: 9px 12px; border-radius: 999px; border: 1px solid var(--card-border); background: var(--stat-bg); color: var(--text); cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: all 0.2s ease; }
-    .preset-time-btn:hover { border-color: var(--primary); transform: translateY(-1px); }
-    .preset-time-btn.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; border-color: transparent; }
+    .timer-controls { display: grid;
+      grid-template-columns: 1fr 1fr; gap: 12px; }
+    .timer-controls .btn { width: 100%;
+    }
+    .music-player iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; min-height: 220px; border-radius: 16px;
+      border: 1px solid var(--card-border); background: var(--stat-bg); }
+    .preset-times { display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .preset-time-btn { padding: 9px 12px; border-radius: 999px; border: 1px solid var(--card-border); background: var(--stat-bg); color: var(--text);
+      cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: all 0.2s ease; }
+    .preset-time-btn:hover { border-color: var(--primary); transform: translateY(-1px);
+    }
+    .preset-time-btn.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; border-color: transparent;
+    }
     .input-group { display: flex; gap: 8px; }
-    .quote-box { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-align: center; font-style: italic; font-size: 1.1rem; line-height: 1.6; min-height: 160px; transition: opacity 0.18s ease, transform 0.18s ease; }
-    .quote-author { display: block; margin-top: 12px; font-weight: 900; font-style: normal; color: var(--primary); font-size: 3.95rem; }
-    .quote-author.small { font-size: 0.85rem; color: var(--muted); }
+    .quote-box { flex: 1; display: flex;
+      flex-direction: column; justify-content: center; padding: 24px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-align: center; font-style: italic; font-size: 1.1rem;
+      line-height: 1.6; min-height: 160px; transition: opacity 0.18s ease, transform 0.18s ease; }
+    .quote-author { display: block;
+      margin-top: 12px; font-weight: 900; font-style: normal; color: var(--primary); font-size: 3.95rem; }
+    .quote-author.small { font-size: 0.85rem; color: var(--muted);
+    }
     .quote-text-large { font-style: italic; font-size: 1.1rem; line-height: 1.6; }
-    .news-list { display: flex; flex-direction: column; gap: 12px; list-style: none; padding: 0; margin: 0; }
-    .news-item { padding: 16px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-decoration: none; color: inherit; transition: all 0.2s; }
+    .news-list { display: flex;
+      flex-direction: column; gap: 12px; list-style: none; padding: 0; margin: 0; }
+    .news-item { padding: 16px; background: var(--stat-bg);
+      border-radius: 16px; border: 1px solid var(--card-border); text-decoration: none; color: inherit; transition: all 0.2s;
+    }
     .news-item:hover { border-color: var(--primary); transform: translateX(4px); }
-    .news-title { font-weight: 600; margin-bottom: 6px; display: block; }
+    .news-title { font-weight: 600; margin-bottom: 6px;
+      display: block; }
     .news-date { font-size: 0.85rem; color: var(--muted); }
 
-    footer { margin-top: 40px; color: var(--muted); text-align: center; font-size: 0.9rem; }
+    footer { margin-top: 40px;
+      color: var(--muted); text-align: center; font-size: 0.9rem; }
 
     /* =========================================
        NÚT CHAT NỔI (FAB) VÀ KHUNG CHAT
     ========================================= */
     .chat-fab {
-      position: fixed; bottom: 30px; right: 30px;
+      position: fixed;
+      bottom: 30px; right: 30px;
       width: 65px; height: 65px; border-radius: 50%;
       background: linear-gradient(135deg, var(--primary-2), var(--primary));
       color: white; border: none; cursor: pointer;
       box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
       display: flex; align-items: center; justify-content: center;
-      z-index: 1000; transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1000;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .chat-fab:hover { transform: scale(1.08) translateY(-4px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.5); }
-    .chat-fab svg { width: 32px; height: 32px; fill: currentColor; }
+    .chat-fab:hover { transform: scale(1.08) translateY(-4px);
+      box-shadow: 0 15px 35px rgba(139, 92, 246, 0.5); }
+    .chat-fab svg { width: 32px; height: 32px;
+      fill: currentColor; }
 
     .chat-widget {
       position: fixed; bottom: 110px; right: 30px;
@@ -207,48 +263,66 @@
       background: var(--bg-soft); border: 1px solid var(--card-border);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
       border-radius: 24px; box-shadow: var(--shadow);
-      z-index: 999; display: flex; flex-direction: column;
+      z-index: 999;
+      display: flex; flex-direction: column;
       transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       transform-origin: bottom right;
     }
-    .chat-widget.active { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+    .chat-widget.active { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto;
+    }
 
     .chat-header {
       padding: 18px 20px; border-bottom: 1px solid var(--card-border);
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex;
+      justify-content: space-between; align-items: center;
       background: rgba(15, 23, 42, 0.03); border-radius: 24px 24px 0 0;
     }
-    .chat-header h3 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
-    .chat-header button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--muted); transition: color 0.2s; }
+    .chat-header h3 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;
+    }
+    .chat-header button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--muted); transition: color 0.2s;
+    }
     .chat-header button:hover { color: var(--danger-text); }
 
     .chat-body {
-      flex: 1; padding: 20px; overflow-y: auto;
+      flex: 1;
+      padding: 20px; overflow-y: auto;
       display: flex; flex-direction: column; gap: 14px;
     }
     
-    .msg-wrapper { display: flex; flex-direction: column; max-width: 85%; }
+    .msg-wrapper { display: flex; flex-direction: column; max-width: 85%;
+    }
     .msg-wrapper.self { align-self: flex-end; align-items: flex-end; }
-    .msg-wrapper.others { align-self: flex-start; align-items: flex-start; }
+    .msg-wrapper.others { align-self: flex-start; align-items: flex-start;
+    }
     
-    .msg-sender { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
-    .msg-bubble { padding: 10px 14px; border-radius: 16px; font-size: 0.95rem; line-height: 1.4; word-wrap: break-word; }
+    .msg-sender { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; font-weight: 600;
+    }
+    .msg-bubble { padding: 10px 14px; border-radius: 16px; font-size: 0.95rem; line-height: 1.4; word-wrap: break-word;
+    }
     
-    .msg-wrapper.self .msg-bubble { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; border-bottom-right-radius: 4px; }
-    .msg-wrapper.others .msg-bubble { background: var(--msg-others); color: var(--text); border-bottom-left-radius: 4px; }
+    .msg-wrapper.self .msg-bubble { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; border-bottom-right-radius: 4px;
+    }
+    .msg-wrapper.others .msg-bubble { background: var(--msg-others); color: var(--text); border-bottom-left-radius: 4px;
+    }
 
     .chat-footer {
       padding: 16px; border-top: 1px solid var(--card-border);
-      display: flex; flex-direction: column; gap: 10px;
+      display: flex;
+      flex-direction: column; gap: 10px;
     }
-    .chat-footer .input-row { display: flex; gap: 8px; }
+    .chat-footer .input-row { display: flex; gap: 8px;
+    }
 
-    @media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr;
+    } }
     @media (max-width: 640px) { 
-      .timer { grid-template-columns: repeat(2, 1fr); }
-      .chat-widget { width: calc(100vw - 40px); right: 20px; bottom: 100px; height: 60vh; }
-      .chat-fab { right: 20px; bottom: 20px; }
+      .timer { grid-template-columns: repeat(2, 1fr);
+      }
+      .chat-widget { width: calc(100vw - 40px); right: 20px; bottom: 100px; height: 60vh;
+      }
+      .chat-fab { right: 20px; bottom: 20px;
+      }
     }
   </style>
 </head>
@@ -270,6 +344,7 @@
       <div class="panel countdown-card">
         <h2>Kỳ thi Tốt nghiệp THPT 2026</h2>
         <p id="targetDateText">Đang tải...</p>
+        
         <div class="timer">
           <div class="unit"><strong id="days">0</strong><span>Ngày</span></div>
           <div class="unit"><strong id="hours">0</strong><span>Giờ</span></div>
@@ -282,6 +357,7 @@
     <section class="tools-grid">
       <article class="panel tool-card" style="grid-column: 1 / -1;">
         <h3><span>⏱️</span> Công cụ thời gian</h3>
+    
         <div class="timer-tabs" role="tablist" aria-label="Chọn chế độ thời gian">
           <button type="button" class="timer-tab active" id="tabStopwatch" role="tab" aria-selected="true">Đồng hồ bấm giờ</button>
           <button type="button" class="timer-tab" id="tabCountdown" role="tab" aria-selected="false">Đếm ngược môn thi</button>
@@ -290,6 +366,7 @@
         <div class="timer-panel active" id="panelStopwatch" style="flex-direction:column;gap:16px;">
           <div class="timer-display countdown-big" id="stopwatchDisplay">00:00:00</div>
           <div class="timer-controls">
+        
             <button class="btn btn-primary" id="btnStopwatchToggle">Bắt đầu</button>
             <button class="btn btn-danger" id="btnStopwatchReset">Làm lại</button>
           </div>
@@ -299,12 +376,14 @@
           <select id="subjectSelect">
             <option value="90">Môn Toán (90 phút)</option>
             <option value="120">Môn Ngữ Văn (120 phút)</option>
+   
             <option value="60">Môn Ngoại ngữ (60 phút)</option>
             <option value="50">Khoa học (50 phút)</option>
             <option value="15">Test nhanh (15 phút)</option>
           </select>
           <div class="quote-box" style="margin:0;">
             <span id="subjectTimerLabel">Chọn môn để xem thời gian tương ứng.</span>
+            
             <span class="quote-author" id="subjectTimerValue">90 phút</span>
           </div>
           <div class="timer-controls">
@@ -316,12 +395,13 @@
 
       <article class="panel tool-card">
         <h3><span>🎧</span> Trạm nhạc Lofi</h3>
+ 
         <div class="input-group">
           <input type="text" id="ytbInput" placeholder="Dán link YouTube..." />
           <button class="btn btn-primary" id="btnPlayMusic">Phát</button>
         </div>
         <div class="music-player">
-          <iframe id="ytbFrame" src="https://www.youtube.com/embed/jfKfPfyJRdk?si=D3mG-9f_890qjZJ1" frameborder="0" allowfullscreen></iframe>
+          <iframe id="ytbFrame" src="https://www.youtube.com/embed/jfKfPfyJRdk?rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="origin"></iframe>
         </div>
       </article>
 
@@ -338,6 +418,7 @@
         <h3><span>📰</span> Bảng tin sĩ tử</h3>
         <ul class="news-list">
           <a href="https://moet.gov.vn/tin-tuc/tin-tong-hop2/bo-gddt-ban-hanh-huong-dan-to-chuc-ki-thi-tot-nghiep-thpt-nam-2026.html" target="_blank" rel="noopener noreferrer" class="news-item">
+            
             <span class="news-title">Bộ GDĐT ban hành hướng dẫn tổ chức Kì thi tốt nghiệp THPT năm 2026</span>
             <span class="news-date">Cập nhật mới</span>
           </a>
@@ -365,8 +446,9 @@
 
   <div class="chat-widget" id="chatWidget">
     <div class="chat-header">
-      <h3>💬 Chat Sĩ Tử 2K8</h3>
+      <h3>💬 Kênh Chat Cộng Đồng</h3>
       <button id="closeChat" aria-label="Đóng">✖</button>
+  
     </div>
     <div class="chat-body" id="chatBox">
       <div style="text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 10px;">
@@ -390,6 +472,7 @@
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;position:relative;z-index:1;">
           <div>
             <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.02em;">THÔNG BÁO</div>
+        
             <h2 style="margin:14px 0 0;font-size:1.5rem;line-height:1.25;color:#fff;">Cộng đồng ôn thi THPT</h2>
             <p style="margin:8px 0 0;color:rgba(255,255,255,.88);line-height:1.55;max-width:380px;">Tham gia group Facebook để cập nhật thông tin, chia sẻ tài liệu và đồng hành cùng nhau.</p>
           </div>
@@ -403,6 +486,7 @@
             <div style="font-weight:800;font-size:1rem;margin-bottom:4px;">Ấn vào đây để tham gia group</div>
             <div style="color:var(--muted);font-size:.92rem;">Cập nhật thông tin thi, trao đổi tài liệu và học cùng nhau mỗi ngày.</div>
           </div>
+       
         </a>
         <div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;">
           <button id="dontShowWelcomeAgain" style="border:none;background:#e2e8f0;color:#0f172a;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;">Không hiện lại</button>
@@ -433,7 +517,6 @@
     const closeWelcomePopup2 = document.getElementById('closeWelcomePopup2');
     const dontShowWelcomeAgain = document.getElementById('dontShowWelcomeAgain');
     const hideWelcome = localStorage.getItem('hide_welcome_popup') === '1';
-
     if (!hideWelcome) {
       welcomePopup.style.display = 'flex';
     }
@@ -453,8 +536,8 @@
     });
 
     // Countdown
-    const targetDate = new Date('2026-06-25T07:00:00+07:00');
-    document.getElementById('targetDateText').textContent = `Mốc: ${targetDate.toLocaleDateString('vi-VN')} - 07:00 AM`;
+    const targetDate = new Date('2026-06-11T07:30:00+07:00');
+    document.getElementById('targetDateText').textContent = `Mốc thời gian: ${targetDate.toLocaleDateString('vi-VN')} - 07:30 AM`;
     setInterval(() => {
       const diff = targetDate.getTime() - new Date().getTime();
       if (diff > 0) {
@@ -516,6 +599,7 @@
     const subjectTimerValue = document.getElementById('subjectTimerValue');
     const btnSubjectStart = document.getElementById('btnSubjectStart');
     const btnSubjectReset = document.getElementById('btnSubjectReset');
+
     const subjectMap = {
       90: 'Môn Toán',
       120: 'Môn Ngữ Văn',
@@ -610,7 +694,6 @@
     /* ----------------------------------------------------
        KẾT NỐI FIREBASE REALTIME DATABASE
     ----------------------------------------------------- */
-    // ⚠️ HÃY THAY ĐOẠN CẤU HÌNH DƯỚI ĐÂY BẰNG CẤU HÌNH CỦA BẠN (Xem Hướng dẫn)
     const firebaseConfig = {
       apiKey: "AIzaSyCCLwXwAffSc5c03SLvrGgJmBIhhjg2-4g",
       authDomain: "countdownthpt-6823b.firebaseapp.com",
@@ -667,7 +750,6 @@
       msgWrapper.appendChild(safeBubble);
       chatBox.appendChild(msgWrapper);
       chatBox.scrollTop = chatBox.scrollHeight;
-      updateChatStatus('Đã cập nhật tin nhắn realtime.');
     }
 
     const chatStatus = document.createElement('div');
@@ -687,15 +769,32 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
+    function clearChatMessages() {
+      chatBox.innerHTML = '';
+    }
+
+    function setChatWelcomeState(text) {
+      clearChatMessages();
+      const msg = document.createElement('div');
+      msg.id = 'chatWelcomeMessage';
+      msg.style.cssText = 'text-align:center;color:var(--muted);font-size:0.85rem;padding:8px 12px;';
+      msg.textContent = text;
+      chatBox.appendChild(msg);
+    }
+
     function hideIntroBlocks() {
       if (chatNameHint) chatNameHint.style.display = 'none';
     }
 
-    function getFirestoreLikeErrorMessage(error) {
-      const code = error?.code || error?.message || 'unknown';
-      if (String(code).includes('permission-denied')) return 'Firebase đang chặn quyền ghi. Hãy mở Rules Realtime Database cho phép đọc/ghi hoặc thêm xác thực phù hợp.';
-      if (String(code).includes('network')) return 'Không thể kết nối mạng tới Firebase. Hãy kiểm tra internet hoặc cấu hình databaseURL.';
-      return `Gửi thất bại: ${code}`;
+    function removeChatWelcomeMessage() {
+      const el = document.getElementById('chatWelcomeMessage');
+      if (el) el.remove();
+    }
+
+    function clearSystemMessages() {
+      chatBox.querySelectorAll('[style*="text-align:center;color:var(--muted)"]').forEach((el) => {
+        if (el.id !== 'chatWelcomeMessage') el.remove();
+      });
     }
 
     const quoteBox = document.getElementById('quoteBox');
@@ -745,19 +844,66 @@
     const btnPlayMusic = document.getElementById('btnPlayMusic');
     const ytbInput = document.getElementById('ytbInput');
     const ytbFrame = document.getElementById('ytbFrame');
-    function extractYouTubeId(url) {
-      const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
-      if (match && match[1]) return match[1];
-      if (url.includes('v=')) return url.split('v=')[1].split('&')[0];
-      if (url.includes('youtu.be/')) return url.split('youtu.be/')[1].split('?')[0];
-      return url;
+
+    function setMusicError(message) {
+      ytbFrame.src = 'about:blank';
+      ytbFrame.style.border = '1px solid rgba(239, 68, 68, 0.45)';
+      ytbFrame.style.background = 'rgba(239, 68, 68, 0.08)';
+      ytbFrame.title = message;
+      console.warn(message);
     }
+
+    function normalizeYouTubeUrl(url) {
+      return url.trim().replace(/^<|>$/g, '');
+    }
+
+    function extractYouTubeId(url) {
+      const cleaned = normalizeYouTubeUrl(url);
+      const patterns = [
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([A-Za-z0-9_-]{6,})/i,
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([A-Za-z0-9_-]{6,})/i,
+        /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([A-Za-z0-9_-]{6,})/i,
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]{6,})/i
+      ];
+      
+      for (const pattern of patterns) {
+        const match = cleaned.match(pattern);
+        if (match && match[1]) return match[1].replace(/[^A-Za-z0-9_-]/g, '');
+      }
+
+      try {
+        const parsed = new URL(cleaned);
+        const v = parsed.searchParams.get('v');
+        if (v) return v.replace(/[^A-Za-z0-9_-]/g, '');
+        const pathParts = parsed.pathname.split('/').filter(Boolean);
+        if (pathParts.length) {
+          const last = pathParts[pathParts.length - 1].split('?')[0].replace(/[^A-Za-z0-9_-]/g, '');
+          if (last.length >= 6) return last;
+        }
+      } catch (_) {
+        // ignore
+      }
+
+      return '';
+    }
+
     btnPlayMusic.addEventListener('click', () => {
       const url = ytbInput.value.trim();
-      if (!url) return;
+      if (!url) return setMusicError('Vui lòng dán link YouTube hợp lệ.');
+
       const id = extractYouTubeId(url);
-      ytbFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+      if (!id || id.length < 6) {
+        return setMusicError('Không nhận diện được ID video. Hãy dán link YouTube chuẩn như youtu.be/ID hoặc youtube.com/watch?v=ID.');
+      }
+
+      const embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&origin=${encodeURIComponent(location.origin)}`;
+      ytbFrame.style.border = '1px solid var(--card-border)';
+      ytbFrame.style.background = 'var(--stat-bg)';
+      ytbFrame.title = 'YouTube video player';
+      ytbFrame.allow = 'autoplay; encrypted-media; picture-in-picture';
+      ytbFrame.src = embedUrl;
     });
+
     chatName.addEventListener('change', () => {
       const lockedName = lockChatName();
       if (lockedName) {
@@ -774,31 +920,75 @@
     });
 
     let chatRef = null;
+    let currentUserId = localStorage.getItem('chat_user_id') || '';
+    let lastSendAt = Number(localStorage.getItem('chat_last_send_at') || 0);
+    const CHAT_COOLDOWN_MS = 2000;
+
+    function ensureAnonymousAuth() {
+      return firebase.auth().signInAnonymously().then((result) => {
+        currentUserId = result.user?.uid || currentUserId || 'anonymous';
+        localStorage.setItem('chat_user_id', currentUserId);
+        return currentUserId;
+      });
+    }
+
+    function canSendNow() {
+      return (Date.now() - lastSendAt) >= CHAT_COOLDOWN_MS;
+    }
+
     try {
       firebase.initializeApp(firebaseConfig);
       const database = firebase.database();
-      chatRef = database.ref('public_chat');
+      chatRef = database.ref('messages');
 
-      chatRef.on('child_added', (snapshot) => {
-        const data = snapshot.val() || {};
-        const currentName = getChatName();
-        const msgType = (data.name === currentName) ? 'self' : 'others';
-        appendMessage(data.name || 'Ẩn danh', data.text || '', msgType);
-      }, (error) => {
-        console.error('Firebase realtime error:', error);
-        updateChatStatus('Kết nối realtime lỗi.');
-        appendSystemMessage(getFirestoreLikeErrorMessage(error));
-      });
+      // Hàm bọc logic tải tin nhắn, chỉ gọi KHI ĐÃ ĐĂNG NHẬP XONG
+      function startLoadingMessages() {
+        clearChatMessages();
+        
+        // Load tin nhắn cũ và nghe tin nhắn mới
+        chatRef.orderByChild('timestamp').limitToLast(50).on('child_added', (snapshot) => {
+          const data = snapshot.val() || {};
+          clearSystemMessages();
+          removeChatWelcomeMessage();
+          appendMessage(data.name || 'Ẩn danh', data.text || '', (data.uid === currentUserId) ? 'self' : 'others');
+        }, (error) => {
+          console.error('Firebase realtime error:', error);
+          updateChatStatus('Kết nối realtime lỗi.');
+          appendSystemMessage('Lỗi tải tin nhắn: ' + (error.message || 'Không xác định')); 
+        });
 
-      chatRef.on('value', (snapshot) => {
-        if (!snapshot.exists()) {
-          appendSystemMessage('Chưa có tin nhắn nào. Hãy là người đầu tiên gửi tin!');
+        // Kiểm tra database trống
+        chatRef.orderByChild('timestamp').limitToLast(1).once('value').then((snapshot) => {
+          if (!snapshot.exists()) {
+            setChatWelcomeState('Chào mừng bạn vào nhóm chat. Hãy giữ lịch sự nhé!');
+          }
+        });
+      }
+
+      // Lắng nghe trạng thái đăng nhập
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          currentUserId = user.uid;
+          localStorage.setItem('chat_user_id', currentUserId);
+          updateChatStatus('Đã kết nối máy chủ chat.');
         }
-        updateChatStatus('Đã kết nối Firebase Realtime Database.');
-      }, (error) => {
-        console.error('Firebase value listener error:', error);
-        updateChatStatus('Không thể đọc dữ liệu realtime.');
       });
+
+      // THỰC HIỆN ĐĂNG NHẬP TRƯỚC, THÀNH CÔNG MỚI LOAD DATA
+      firebase.auth().signInAnonymously()
+        .then((result) => {
+          currentUserId = result.user?.uid || currentUserId || 'anonymous';
+          localStorage.setItem('chat_user_id', currentUserId);
+          
+          // Đã có quyền -> Bắt đầu tải tin nhắn
+          startLoadingMessages(); 
+        })
+        .catch((error) => {
+          console.error('Anonymous auth error:', error);
+          updateChatStatus('Không thể đăng nhập ẩn danh.');
+          appendSystemMessage('Lỗi xác thực: Cần bật Anonymous trong Authentication (Firebase Console).');
+        });
+
     } catch (error) {
       console.error('Firebase init error:', error);
       appendSystemMessage('Firebase chưa sẵn sàng, chat realtime tạm thời không hoạt động.');
@@ -816,26 +1006,39 @@
 
       if (text === '') return;
 
+      if (!canSendNow()) {
+        appendSystemMessage('Bạn gửi quá nhanh, vui lòng chờ 2 giây rồi thử lại.');
+        return;
+      }
+
       hideIntroBlocks();
       btnSendChat.disabled = true;
       btnSendChat.textContent = 'Đang gửi...';
       updateChatStatus('Đang gửi tin nhắn...');
 
       const messagePayload = {
+        uid: currentUserId,
         name,
         text,
-        timestamp: Date.now(),
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
         createdAt: new Date().toISOString()
       };
 
       try {
-        const result = await chatRef.push(messagePayload);
-        console.log('Message sent:', result?.key || 'ok');
+        const newMsgRef = await chatRef.push(messagePayload);
         chatInput.value = '';
+        lastSendAt = Date.now();
+        localStorage.setItem('chat_last_send_at', String(lastSendAt));
+        
+        // Đã xóa appendMessage(name, text, 'self') ở đây để tránh trùng lặp
+        
+        removeChatWelcomeMessage();
+        clearSystemMessages();
         updateChatStatus('Tin nhắn đã gửi thành công.');
       } catch (error) {
         console.error('Send message failed:', error);
-        appendSystemMessage(getFirestoreLikeErrorMessage(error));
+        // BẢN SỬA LỖI: Sửa hàm gọi lỗi để tránh crash
+        appendSystemMessage(error.message || 'Gửi thất bại, lỗi không xác định');
         updateChatStatus('Gửi thất bại, vui lòng thử lại.');
       } finally {
         btnSendChat.disabled = false;
