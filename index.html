@@ -121,7 +121,51 @@
     .tool-card h3 { margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px; }
     .tool-card h3 span { font-size: 1.5rem; }
 
-    .timer-display { font-size: 4rem; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; color: var(--primary); background: var(--stat-bg); border-radius: 16px; padding: 20px; border: 1px solid var(--card-border); }
+    .timer-tabs { display: flex; gap: 10px; padding: 6px; background: var(--stat-bg); border: 1px solid var(--card-border); border-radius: 18px; }
+    .timer-tab {
+      flex: 1;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 12px 14px;
+      border-radius: 14px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .timer-tab.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; box-shadow: 0 10px 24px rgba(99,102,241,.24); }
+    .timer-panel { display: none; }
+    .timer-panel.active { display: flex; }
+
+    .timer-display {
+      font-family: 'Inter', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+      color: var(--primary);
+      background: var(--stat-bg);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--card-border);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .timer-display.countdown-big {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(4.6rem, 8vw, 6.4rem);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      padding: 28px 18px;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
     .timer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .timer-controls .btn { width: 100%; }
     .music-player iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; min-height: 220px; border-radius: 16px; border: 1px solid var(--card-border); background: var(--stat-bg); }
@@ -131,7 +175,9 @@
     .preset-time-btn.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; border-color: transparent; }
     .input-group { display: flex; gap: 8px; }
     .quote-box { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-align: center; font-style: italic; font-size: 1.1rem; line-height: 1.6; min-height: 160px; transition: opacity 0.18s ease, transform 0.18s ease; }
-    .quote-author { display: block; margin-top: 12px; font-weight: 600; font-style: normal; color: var(--primary); font-size: 0.95rem; }
+    .quote-author { display: block; margin-top: 12px; font-weight: 900; font-style: normal; color: var(--primary); font-size: 3.95rem; }
+    .quote-author.small { font-size: 0.85rem; color: var(--muted); }
+    .quote-text-large { font-style: italic; font-size: 1.1rem; line-height: 1.6; }
     .news-list { display: flex; flex-direction: column; gap: 12px; list-style: none; padding: 0; margin: 0; }
     .news-item { padding: 16px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-decoration: none; color: inherit; transition: all 0.2s; }
     .news-item:hover { border-color: var(--primary); transform: translateX(4px); }
@@ -234,31 +280,37 @@
     </section>
 
     <section class="tools-grid">
-      <article class="panel tool-card">
-        <h3><span>⏱️</span> Đồng hồ bấm giờ</h3>
-        <div class="timer-display" id="stopwatchDisplay">00:00:00</div>
-        <div class="timer-controls">
-          <button class="btn btn-primary" id="btnStopwatchToggle">Bắt đầu</button>
-          <button class="btn btn-danger" id="btnStopwatchReset">Làm lại</button>
+      <article class="panel tool-card" style="grid-column: 1 / -1;">
+        <h3><span>⏱️</span> Công cụ thời gian</h3>
+        <div class="timer-tabs" role="tablist" aria-label="Chọn chế độ thời gian">
+          <button type="button" class="timer-tab active" id="tabStopwatch" role="tab" aria-selected="true">Đồng hồ bấm giờ</button>
+          <button type="button" class="timer-tab" id="tabCountdown" role="tab" aria-selected="false">Đếm ngược môn thi</button>
         </div>
-      </article>
 
-      <article class="panel tool-card">
-        <h3><span>📚</span> Đếm ngược thời gian thi các môn</h3>
-        <select id="subjectSelect">
-          <option value="90">Môn Toán (90 phút)</option>
-          <option value="120">Môn Ngữ Văn (120 phút)</option>
-          <option value="60">Môn Ngoại ngữ (60 phút)</option>
-          <option value="50">Khoa học (50 phút)</option>
-          <option value="15">Test nhanh (15 phút)</option>
-        </select>
-        <div class="quote-box" style="margin:0;">
-          <span id="subjectTimerLabel">Chọn môn để xem thời gian tương ứng.</span>
-          <span class="quote-author" id="subjectTimerValue">90 phút</span>
+        <div class="timer-panel active" id="panelStopwatch" style="flex-direction:column;gap:16px;">
+          <div class="timer-display countdown-big" id="stopwatchDisplay">00:00:00</div>
+          <div class="timer-controls">
+            <button class="btn btn-primary" id="btnStopwatchToggle">Bắt đầu</button>
+            <button class="btn btn-danger" id="btnStopwatchReset">Làm lại</button>
+          </div>
         </div>
-        <div class="timer-controls">
-          <button class="btn btn-primary" id="btnSubjectStart">Bắt đầu</button>
-          <button class="btn btn-secondary" id="btnSubjectReset">Làm lại</button>
+
+        <div class="timer-panel" id="panelCountdown" style="flex-direction:column;gap:16px;">
+          <select id="subjectSelect">
+            <option value="90">Môn Toán (90 phút)</option>
+            <option value="120">Môn Ngữ Văn (120 phút)</option>
+            <option value="60">Môn Ngoại ngữ (60 phút)</option>
+            <option value="50">Khoa học (50 phút)</option>
+            <option value="15">Test nhanh (15 phút)</option>
+          </select>
+          <div class="quote-box" style="margin:0;">
+            <span id="subjectTimerLabel">Chọn môn để xem thời gian tương ứng.</span>
+            <span class="quote-author" id="subjectTimerValue">90 phút</span>
+          </div>
+          <div class="timer-controls">
+            <button class="btn btn-primary" id="btnSubjectStart">Bắt đầu</button>
+            <button class="btn btn-secondary" id="btnSubjectReset">Làm lại</button>
+          </div>
         </div>
       </article>
 
@@ -276,8 +328,8 @@
       <article class="panel tool-card">
         <h3><span>🔥</span> Nạp năng lượng</h3>
         <div class="quote-box" id="quoteBox">
-          <span id="quoteText">"Nỗ lực hôm nay, huy hoàng ngày mai. Hãy cố gắng!"</span>
-          <span class="quote-author" id="quoteAuthor">- Khuyết danh</span>
+          <span id="quoteText" class="quote-text-large">"Nỗ lực hôm nay, huy hoàng ngày mai. Hãy cố gắng!"</span>
+          <span class="quote-author small" id="quoteAuthor">- Khuyết danh</span>
         </div>
         <button class="btn btn-secondary" id="btnNewQuote">Đổi câu khác</button>
       </article>
@@ -285,8 +337,18 @@
       <article class="panel tool-card">
         <h3><span>📰</span> Bảng tin sĩ tử</h3>
         <ul class="news-list">
-          <a href="#" class="news-item"><span class="news-title">📝 Bộ GD&ĐT dự kiến công bố đề thi minh họa</span><span class="news-date">Hôm nay</span></a>
-          <a href="#" class="news-item"><span class="news-title">🎯 Các trường ĐH công bố phương án tuyển sinh</span><span class="news-date">Hôm qua</span></a>
+          <a href="https://moet.gov.vn/tin-tuc/tin-tong-hop2/bo-gddt-ban-hanh-huong-dan-to-chuc-ki-thi-tot-nghiep-thpt-nam-2026.html" target="_blank" rel="noopener noreferrer" class="news-item">
+            <span class="news-title">Bộ GDĐT ban hành hướng dẫn tổ chức Kì thi tốt nghiệp THPT năm 2026</span>
+            <span class="news-date">Cập nhật mới</span>
+          </a>
+          <a href="https://vqa.moet.gov.vn/vi/news/tin-tuc-su-kien/ky-thi-tot-nghiep-thpt-nam-2026-giu-on-dinh-mot-so-dieu-chinh-khong-anh-huong-toi-thi-sinh-226.html" target="_blank" rel="noopener noreferrer" class="news-item">
+            <span class="news-title">Kỳ thi tốt nghiệp THPT 2026: Giữ ổn định, một số điều chỉnh không ảnh hưởng tới thí sinh</span>
+            <span class="news-date">Tin chính thức</span>
+          </a>
+          <a href="https://moet.gov.vn/tin-tuc/tin-tong-hop2/sua-doi-bo-sung-mot-so-dieu-cua-quy-che-thi-tot-nghiep-trung-hoc-pho-thong.html" target="_blank" rel="noopener noreferrer" class="news-item">
+            <span class="news-title">Sửa đổi, bổ sung một số điều của Quy chế thi tốt nghiệp THPT</span>
+            <span class="news-date">Bộ GDĐT</span>
+          </a>
         </ul>
       </article>
     </section>
@@ -404,7 +466,7 @@
       }
     }, 1000);
 
-    // Stopwatch - độc lập bên trái
+    // Stopwatch - độc lập
     let stopwatchSeconds = 0, stopwatchInterval = null, stopwatchRunning = false;
     const stopwatchDisplay = document.getElementById('stopwatchDisplay');
     const btnStopwatchToggle = document.getElementById('btnStopwatchToggle');
@@ -447,7 +509,7 @@
     btnStopwatchReset.addEventListener('click', resetStopwatch);
     updateStopwatchDisplay();
 
-    // Countdown môn thi - độc lập bên phải
+    // Countdown môn thi
     let subjectCountdownTotal = 90 * 60, subjectCountdownLeft = subjectCountdownTotal, subjectCountdownInterval = null, subjectCountdownRunning = false;
     const subjectSelect = document.getElementById('subjectSelect');
     const subjectTimerLabel = document.getElementById('subjectTimerLabel');
@@ -514,6 +576,25 @@
     btnSubjectReset.addEventListener('click', () => resetSubjectCountdown(parseInt(subjectSelect.value, 10)));
     updateSubjectPreview(parseInt(subjectSelect.value, 10));
     resetSubjectCountdown();
+
+    // Tabs
+    const tabStopwatch = document.getElementById('tabStopwatch');
+    const tabCountdown = document.getElementById('tabCountdown');
+    const panelStopwatch = document.getElementById('panelStopwatch');
+    const panelCountdown = document.getElementById('panelCountdown');
+
+    function setActiveTimerTab(tab) {
+      const isStopwatch = tab === 'stopwatch';
+      tabStopwatch.classList.toggle('active', isStopwatch);
+      tabCountdown.classList.toggle('active', !isStopwatch);
+      tabStopwatch.setAttribute('aria-selected', String(isStopwatch));
+      tabCountdown.setAttribute('aria-selected', String(!isStopwatch));
+      panelStopwatch.classList.toggle('active', isStopwatch);
+      panelCountdown.classList.toggle('active', !isStopwatch);
+    }
+
+    tabStopwatch.addEventListener('click', () => setActiveTimerTab('stopwatch'));
+    tabCountdown.addEventListener('click', () => setActiveTimerTab('countdown'));
 
     /* ----------------------------------------------------
        TÍNH NĂNG CHAT NỔI (UI LOGIC)
