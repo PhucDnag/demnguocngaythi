@@ -1,1158 +1,292 @@
 <!doctype html>
 <html lang="vi" data-theme="light">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0ea5e9" />
-  <meta name="description" content="Trạm Ôn Thi THPT 2026 là website đếm ngược ngày thi tốt nghiệp THPT, theo dõi lịch thi, luyện Pomodoro, nghe nhạc lofi và tham gia chat cộng đồng cho sĩ tử 2K8." />
-  <meta name="keywords" content="đếm ngược ngày thi thpt 2026, đếm ngược tốt nghiệp thpt 2026, lịch thi thpt 2026, ôn thi thpt quốc gia, sĩ tử 2k8, đồng hồ pomodoro, timer học tập, nhạc lofi học bài, chat cộng đồng ôn thi, lịch thi tốt nghiệp thpt, đếm ngược ngày thi đại học, website ôn thi thpt, đề thi minh họa thpt, chiến lược ôn thi thpt, tài liệu ôn thi thpt quốc gia, lịch thi tốt nghiệp thpt quốc gia 2026, đếm ngược thi đại học 2026" />
-  <meta name="author" content="Trạm Ôn Thi THPT 2026" />
+  <meta name="theme-color" content="#3b82f6" />
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Website đếm ngược ngày thi THPT 2027 dành cho sĩ tử 2K9. Theo dõi lịch thi, luyện Pomodoro, nhạc lofi, To-do list và chat cộng đồng ôn thi Đại học 2027." />
+  <meta name="keywords"
+    content="đếm ngược ngày thi thpt 2027, đếm ngược tốt nghiệp thpt 2027, lịch thi thpt 2027, ôn thi thpt quốc gia 2027, sĩ tử 2k9, đồng hồ pomodoro, timer học tập, nhạc lofi học bài, chat cộng đồng ôn thi 2k9, lịch thi tốt nghiệp thpt, to-do list học tập" />
+  <meta name="author" content="Trạm Ôn Thi THPT 2027" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="googlebot" content="index, follow" />
+
   <link rel="canonical" href="https://demnguocngaythi.xyz/" />
-  <title>Đếm Ngược Ngày Thi THPT 2026 | Lịch Thi, Pomodoro, Nhạc Lofi</title>
+  <title>Đếm Ngược Ngày Thi THPT 2027 - Sĩ tử 2K9 | Tiện Ích Ôn Thi</title>
+
   <link rel="icon" type="image/png" href="./favicon.ico" />
   <link rel="apple-touch-icon" href="./favicon.ico" />
+
+  <!-- Preconnect & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Firebase Preconnect -->
+  <link rel="preconnect" href="https://countdownthpt-6823b-default-rtdb.asia-southeast1.firebasedatabase.app"
+    crossorigin />
 
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Trạm Ôn Thi THPT 2026" />
-  <meta property="og:title" content="Đếm Ngược Ngày Thi THPT 2026 | Lịch Thi, Pomodoro, Nhạc Lofi" />
-  <meta property="og:description" content="Website đếm ngược ngày thi THPT 2026, xem lịch thi, luyện Pomodoro, nghe nhạc lofi và chat cộng đồng cho sĩ tử 2K8." />
+  <meta property="og:site_name" content="Trạm Ôn Thi THPT 2027" />
+  <meta property="og:title" content="Đếm Ngược Ngày Thi THPT 2027 - Sĩ tử 2K9" />
+  <meta property="og:description"
+    content="Trạm ôn thi đa năng cho 2K9: Đếm ngược, Pomodoro, Nhạc Lofi, To-do List và Chat Cộng đồng." />
   <meta property="og:url" content="https://demnguocngaythi.xyz/" />
   <meta property="og:image" content="https://demnguocngaythi.xyz/thumbnail.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="vi_VN" />
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Đếm Ngược Ngày Thi THPT 2026 | Lịch Thi, Pomodoro, Nhạc Lofi" />
-  <meta name="twitter:description" content="Website đếm ngược ngày thi THPT 2026, xem lịch thi, luyện Pomodoro, nghe nhạc lofi và chat cộng đồng cho sĩ tử 2K8." />
+  <meta name="twitter:title" content="Đếm Ngược Ngày Thi THPT 2027 - Sĩ tử 2K9" />
+  <meta name="twitter:description"
+    content="Trạm ôn thi đa năng cho 2K9: Đếm ngược, Pomodoro, Nhạc Lofi, To-do List và Chat Cộng đồng." />
   <meta name="twitter:image" content="https://demnguocngaythi.xyz/thumbnail.png" />
 
+  <!-- JSON-LD Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebSite",
-        "name": "Trạm Ôn Thi THPT 2026",
+        "name": "Trạm Ôn Thi THPT 2027",
         "url": "https://demnguocngaythi.xyz/",
-        "description": "Website đếm ngược ngày thi THPT 2026, lịch thi, pomodoro, nhạc lofi và chat cộng đồng.",
-        "inLanguage": "vi-VN",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://demnguocngaythi.xyz/?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
+        "description": "Website đếm ngược ngày thi THPT 2027, lịch thi, pomodoro, to-do list, nhạc lofi và chat cộng đồng 2K9.",
+        "inLanguage": "vi-VN"
       },
       {
         "@type": "Organization",
-        "name": "Trạm Ôn Thi THPT 2026",
+        "name": "Trạm Ôn Thi THPT 2027",
         "url": "https://demnguocngaythi.xyz/",
         "logo": "https://demnguocngaythi.xyz/thumbnail.png",
         "sameAs": [
           "https://www.facebook.com/groups/1993914981519042"
         ]
-      },
-      {
-        "@type": "WebPage",
-        "name": "Đếm Ngược Ngày Thi THPT 2026 | Lịch Thi, Pomodoro, Nhạc Lofi",
-        "url": "https://demnguocngaythi.xyz/",
-        "description": "Theo dõi ngày thi THPT 2026, lịch thi, Pomodoro học tập, nhạc lofi và chat cộng đồng dành cho sĩ tử 2K8."
       }
     ]
   }
   </script>
-  
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
-  <style>
-    /* HỆ THỐNG BIẾN CSS */
-    :root {
-      --bg-color: #f8fafc;
-      --bg-gradient: linear-gradient(180deg, #f0f9ff 0%, #e2e8f0 100%);
-      --bg-soft: rgba(255, 255, 255, 0.7);
-      --card: rgba(255, 255, 255, 0.85);
-      --card-border: rgba(148, 163, 184, 0.3);
-      --text: #0f172a;
-      --muted: #475569;
-      --primary: #0ea5e9;
-      --primary-2: #8b5cf6;
-      --success-bg: rgba(16, 185, 129, 0.15);
-      --success-text: #059669;
-      --danger-bg: rgba(239, 68, 68, 0.15);
-      --danger-text: #dc2626;
-      --shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
-      --unit-bg: linear-gradient(180deg, #ffffff, #f1f5f9);
-      --unit-text: #0f172a;
-      --eyebrow-bg: rgba(14, 165, 233, 0.15);
-      --eyebrow-text: #0369a1;
-      --stat-bg: rgba(255, 255, 255, 0.6);
-      --input-bg: #ffffff;
-      --msg-others: rgba(148, 163, 184, 0.2);
-    }
-
-    [data-theme="dark"] {
-      --bg-color: #020617;
-      --bg-gradient: linear-gradient(180deg, #020617 0%, #0f172a 100%);
-      --bg-soft: rgba(15, 23, 42, 0.72);
-      --card: rgba(15, 23, 42, 0.78);
-      --card-border: rgba(148, 163, 184, 0.18);
-      --text: #e2e8f0;
-      --muted: #94a3b8;
-      --primary: #38bdf8;
-      --primary-2: #a78bfa;
-      --success-bg: rgba(52, 211, 153, 0.1);
-      --success-text: #bbf7d0;
-      --danger-bg: rgba(248, 113, 113, 0.15);
-      --danger-text: #fecaca;
-      --shadow: 0 24px 80px rgba(2, 6, 23, 0.45);
-      --unit-bg: linear-gradient(180deg, rgba(15,23,42,0.95), rgba(15,23,42,0.6));
-      --unit-text: #ffffff;
-      --eyebrow-bg: rgba(56, 189, 248, 0.1);
-      --eyebrow-text: #bae6fd;
-      --stat-bg: rgba(15, 23, 42, 0.55);
-      --input-bg: rgba(15, 23, 42, 0.9);
-      --msg-others: rgba(148, 163, 184, 0.15);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif; color: var(--text);
-      min-height: 100vh; background: var(--bg-gradient); overflow-x: hidden;
-      transition: background 0.4s ease, color 0.4s ease;
-    }
-
-    .ambient {
-      position: fixed; inset: 0; pointer-events: none;
-      background-image: radial-gradient(var(--muted) 1px, transparent 1px);
-      background-size: 24px 24px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,0.6), transparent 90%);
-      -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.6), transparent 90%);
-      opacity: 0.15;
-    }
-    [data-theme="dark"] .ambient { opacity: 0.08; }
-
-    .container { width: min(1120px, calc(100% - 32px));
-      margin: 0 auto; padding: 28px 0 56px; position: relative; z-index: 1;
-    }
-
-    /* HEADER */
-    header { display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      padding: 8px 0 32px; }
-    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;
-    }
-    .logo { width: 48px; height: 48px; border-radius: 16px; background: linear-gradient(135deg, var(--primary), var(--primary-2)); display: grid; place-items: center;
-      font-weight: 800; color: white; }
-    .brand h1 { margin: 0; font-size: 1.1rem; line-height: 1.2; }
-    .brand p { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
-
-    .theme-toggle { background: var(--card); border: 1px solid var(--card-border); color: var(--text); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: grid; place-items: center; transition: all 0.3s ease; }
-    .theme-toggle:hover { transform: scale(1.1) rotate(15deg); background: var(--bg-soft); }
-    .theme-toggle svg { width: 20px; height: 20px; fill: currentColor; }
-    [data-theme="dark"] .icon-moon { display: none; }
-    [data-theme="light"] .icon-sun { display: none;
-    }
-
-    /* COMPONENT CHUNG */
-    .panel { background: var(--bg-soft); border: 1px solid var(--card-border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 28px; box-shadow: var(--shadow); }
-    .btn { appearance: none; border: 0; border-radius: 12px; padding: 12px 20px; font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-    .btn:active { transform: scale(0.96); }
-    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; }
-    .btn-secondary { background: var(--stat-bg);
-      color: var(--text); border: 1px solid var(--card-border); }
-    .btn-danger { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--card-border);
-    }
-    input, select { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--card-border); background: var(--input-bg);
-      color: var(--text); font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-    input:focus, select:focus { border-color: var(--primary);
-    }
-
-    /* HERO & TOOLS */
-    .hero { display: grid; grid-template-columns: 1fr; gap: 24px;
-      margin-bottom: 24px; }
-    .countdown-card { padding: 36px; text-align: center; display: flex; flex-direction: column; align-items: center;
-    }
-    .countdown-card h1 { margin: 0 0 8px; font-size: 2rem; }
-    .countdown-card p { margin: 0 0 24px; color: var(--muted);
-    }
-    .timer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: 100%; max-width: 800px;
-    }
-    .unit { padding: 24px 16px; border-radius: 24px; background: var(--unit-bg); border: 1px solid var(--card-border);
-      text-align: center;}
-    .unit strong { display: block; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1; margin-bottom: 8px;
-      color: var(--unit-text); }
-    .unit span { color: var(--muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
-    }
-
-    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .tool-card { padding: 28px; display: flex; flex-direction: column; gap: 16px; }
-    .tool-card h3 { margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px;
-    }
-    .tool-card h3 span { font-size: 1.5rem; }
-
-    .timer-tabs { display: flex; gap: 10px; padding: 6px; background: var(--stat-bg); border: 1px solid var(--card-border); border-radius: 18px; }
-    .timer-tab {
-      flex: 1;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      padding: 12px 14px;
-      border-radius: 14px;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .timer-tab.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; box-shadow: 0 10px 24px rgba(99,102,241,.24);
-    }
-    .timer-panel { display: none; }
-    .timer-panel.active { display: flex; }
-
-    .timer-display {
-      font-family: 'Inter', sans-serif;
-      font-size: 4rem;
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-      text-align: center;
-      color: var(--primary);
-      background: var(--stat-bg);
-      border-radius: 16px;
-      padding: 20px;
-      border: 1px solid var(--card-border);
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .timer-display.countdown-big {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(4.6rem, 8vw, 6.4rem);
-      letter-spacing: -0.05em;
-      line-height: 1;
-      padding: 28px 18px;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .timer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .timer-controls .btn { width: 100%; }
-    .music-player iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; min-height: 220px; border-radius: 16px; border: 1px solid var(--card-border); background: var(--stat-bg); }
-    .preset-times { display: flex; flex-wrap: wrap; gap: 8px; }
-    .preset-time-btn { padding: 9px 12px; border-radius: 999px; border: 1px solid var(--card-border); background: var(--stat-bg); color: var(--text);
-      cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: all 0.2s ease; }
-    .preset-time-btn:hover { border-color: var(--primary); transform: translateY(-1px);
-    }
-    .preset-time-btn.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; border-color: transparent;
-    }
-    .input-group { display: flex; gap: 8px; }
-    .quote-box { flex: 1; display: flex;
-      flex-direction: column; justify-content: center; padding: 24px; background: var(--stat-bg); border-radius: 16px; border: 1px solid var(--card-border); text-align: center; font-style: italic; font-size: 1.1rem;
-      line-height: 1.6; min-height: 160px; transition: opacity 0.18s ease, transform 0.18s ease; }
-    .quote-author { display: block; margin-top: 12px; font-weight: 900; font-style: normal; color: var(--primary); font-size: 3.95rem; }
-    .quote-author.small { font-size: 0.85rem; color: var(--muted); }
-    .quote-text-large { font-style: italic; font-size: 1.1rem; line-height: 1.6; }
-    .news-list { display: flex;
-      flex-direction: column; gap: 12px; list-style: none; padding: 0; margin: 0; }
-    .news-item { padding: 16px; background: var(--stat-bg);
-      border-radius: 16px; border: 1px solid var(--card-border); text-decoration: none; color: inherit; transition: all 0.2s;
-    }
-    .news-item:hover { border-color: var(--primary); transform: translateX(4px); }
-    .news-title { font-weight: 600; margin-bottom: 6px;
-      display: block; }
-    .news-date { font-size: 0.85rem; color: var(--muted); }
-
-    footer { margin-top: 40px;
-      color: var(--muted); text-align: center; font-size: 0.9rem; }
-
-    /* =========================================
-       NÚT CHAT NỔI (FAB) VÀ KHUNG CHAT
-    ========================================= */
-    .chat-fab {
-      position: fixed;
-      bottom: 30px; right: 30px;
-      width: 65px; height: 65px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary-2), var(--primary));
-      color: white; border: none; cursor: pointer;
-      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 1000;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .chat-fab:hover { transform: scale(1.08) translateY(-4px);
-      box-shadow: 0 15px 35px rgba(139, 92, 246, 0.5); }
-    .chat-fab svg { width: 32px; height: 32px;
-      fill: currentColor; }
-
-    .chat-widget {
-      position: fixed; bottom: 110px; right: 30px;
-      width: 360px; height: 500px;
-      background: var(--bg-soft); border: 1px solid var(--card-border);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-radius: 24px; box-shadow: var(--shadow);
-      z-index: 999;
-      display: flex; flex-direction: column;
-      transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      transform-origin: bottom right;
-    }
-    .chat-widget.active { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
-    .chat-overlay {
-      position: fixed; inset: 0; background: rgba(2, 6, 23, 0.42);
-      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-      z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
-    }
-    .chat-overlay.active { opacity: 1; pointer-events: auto; }
-    .chat-widget.active ~ .chat-fab { opacity: 1; }
-
-    .chat-header {
-      padding: 18px 20px; border-bottom: 1px solid var(--card-border);
-      display: flex;
-      justify-content: space-between; align-items: center;
-      background: rgba(15, 23, 42, 0.03); border-radius: 24px 24px 0 0;
-    }
-    .chat-header h3 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;
-    }
-    .chat-header button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--muted); transition: color 0.2s;
-    }
-    .chat-header button:hover { color: var(--danger-text); }
-
-    .chat-body {
-      flex: 1;
-      padding: 20px; overflow-y: auto;
-      display: flex; flex-direction: column; gap: 14px;
-    }
-    
-    .msg-wrapper { display: flex; flex-direction: column; max-width: 85%;
-    }
-    .msg-wrapper.self { align-self: flex-end; align-items: flex-end; }
-    .msg-wrapper.others { align-self: flex-start; align-items: flex-start;
-    }
-    
-    .msg-sender { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; font-weight: 600;
-    }
-    .msg-bubble { padding: 10px 14px; border-radius: 16px; font-size: 0.95rem; line-height: 1.4; word-wrap: break-word;
-    }
-    
-    .msg-wrapper.self .msg-bubble { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; border-bottom-right-radius: 4px;
-    }
-    .msg-wrapper.others .msg-bubble { background: var(--msg-others); color: var(--text); border-bottom-left-radius: 4px;
-    }
-
-    .chat-footer {
-      padding: 16px; border-top: 1px solid var(--card-border);
-      display: flex;
-      flex-direction: column; gap: 10px;
-    }
-    .chat-footer .input-row { display: flex; gap: 8px;
-    }
-
-    @media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 640px) {
-      .container { width: min(100% - 20px, 100%); padding: 16px 0 40px; }
-      header { flex-wrap: wrap; padding: 8px 0 20px; }
-      .brand { width: 100%; }
-      .brand h1 { font-size: 1rem; }
-      .brand p { font-size: 0.82rem; }
-      .theme-toggle { width: 40px; height: 40px; }
-      .countdown-card { padding: 22px 16px; }
-      .countdown-card h1 { font-size: 1.35rem; }
-      .timer { grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 100%; }
-      .unit { padding: 14px 10px; border-radius: 18px; }
-      .unit strong { font-size: 1.8rem; }
-      .unit span { font-size: 0.72rem; }
-      .tool-card { padding: 18px; gap: 14px; }
-      .tool-card h3 { font-size: 1.05rem; }
-      .timer-tabs { gap: 8px; padding: 4px; border-radius: 14px; }
-      .timer-tab { padding: 10px 8px; font-size: 0.84rem; }
-      .timer-display { font-size: 2.8rem; padding: 16px 14px; border-radius: 14px; }
-      .timer-display.countdown-big { font-size: clamp(2.9rem, 16vw, 4rem); padding: 18px 12px; }
-      .timer-controls { grid-template-columns: 1fr; }
-      .input-group { flex-direction: column; }
-      .music-player iframe { min-height: 190px; }
-      .quote-box { padding: 18px; min-height: 130px; font-size: 0.98rem; }
-      .quote-author { font-size: 2.85rem; }
-      .news-item { padding: 14px; }
-      .chat-widget { width: min(100vw - 16px, 420px); height: min(72vh, 620px); right: 8px; bottom: 76px; border-radius: 22px; transform: translateY(20px) scale(0.98); }
-      .chat-widget.active { transform: translateY(0) scale(1); }
-      .chat-header { padding-top: 16px; }
-      .chat-body { padding-bottom: 10px; }
-      .chat-footer { padding-bottom: 12px; }
-      .chat-fab { right: 14px; bottom: 14px; width: 56px; height: 56px; }
-    }
-  </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <div class="ambient" aria-hidden="true"></div>
+  <!-- Background Effect -->
+  <div class="ambient-blob blob-1" aria-hidden="true"></div>
+  <div class="ambient-blob blob-2" aria-hidden="true"></div>
+
   <main class="container">
-    <header>
-      <a class="brand" href="#top">
-        <div class="logo">2K8</div>
-        <div><h1>Trạm Ôn Thi</h1><p>Đếm ngược & Tiện ích THPT</p></div>
+    <!-- HEADER -->
+    <header class="app-header glass-panel">
+      <a class="brand" href="/" aria-label="Trang chủ Trạm Ôn Thi">
+        <div class="brand-logo">2K9</div>
+        <div class="brand-text">
+          <h1 class="title-gradient">Trạm Ôn Thi 2027</h1>
+          <p>Hành trình đỗ Đại Học</p>
+        </div>
       </a>
-      <button id="themeToggle" class="theme-toggle" aria-label="Đổi giao diện">
-        <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3zm1-9h-2v4h2V0zm0 20h-2v4h2v-4zM6.34 5.34L4.93 6.76l2.83 2.83 1.41-1.41-2.83-2.83zm14.14 14.14l-1.41 1.41-2.83-2.83 1.41-1.41 2.83 2.83zM24 11h-4v2h4v-2zM4 11H0v2h4v-2zm1.34 7.66l1.41 1.41 2.83-2.83-1.41-1.41-2.83 2.83zm14.14-14.14l1.41-1.41-2.83-2.83-1.41 1.41 2.83 2.83z"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+      <button id="themeToggle" class="theme-toggle" aria-label="Chuyển đổi giao diện sáng/tối">
+        <svg class="icon-sun" viewBox="0 0 24 24">
+          <path
+            d="M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3zm1-9h-2v4h2V0zm0 20h-2v4h2v-4zM6.34 5.34L4.93 6.76l2.83 2.83 1.41-1.41-2.83-2.83zm14.14 14.14l-1.41 1.41-2.83-2.83 1.41-1.41 2.83 2.83zM24 11h-4v2h4v-2zM4 11H0v2h4v-2zm1.34 7.66l1.41 1.41 2.83-2.83-1.41-1.41-2.83 2.83zm14.14-14.14l1.41-1.41-2.83-2.83-1.41 1.41 2.83 2.83z" />
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24">
+          <path
+            d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" />
+        </svg>
       </button>
     </header>
 
-    <section class="hero" id="top">
-      <div class="panel countdown-card">
-        <h1>Kỳ thi Tốt nghiệp THPT 2026</h1>
-        <p id="targetDateText">Đang tải...</p>
-        
-        <div class="timer">
-          <div class="unit"><strong id="days">0</strong><span>Ngày</span></div>
-          <div class="unit"><strong id="hours">0</strong><span>Giờ</span></div>
-          <div class="unit"><strong id="minutes">0</strong><span>Phút</span></div>
-          <div class="unit"><strong id="seconds">0</strong><span>Giây</span></div>
-        </div>
-      </div>
-    </section>
+    <!-- BENTO GRID SYSTEM -->
+    <div class="bento-grid">
 
-    <section class="tools-grid">
-      <article class="panel tool-card" style="grid-column: 1 / -1;">
-        <h3><span>⏱️</span> Công cụ thời gian</h3>
-    
-        <div class="timer-tabs" role="tablist" aria-label="Chọn chế độ thời gian">
-          <button type="button" class="timer-tab active" id="tabStopwatch" role="tab" aria-selected="true">Đồng hồ bấm giờ</button>
-          <button type="button" class="timer-tab" id="tabCountdown" role="tab" aria-selected="false">Đếm ngược môn thi</button>
+      <!-- 1. COUNTDOWN SECTION -->
+      <section class="glass-panel bento-card bento-hero countdown-section">
+        <h2 class="title-gradient">Kỳ thi Tốt nghiệp THPT 2027</h2>
+        <div class="countdown-date">Dự kiến: 11/06/2027 - 07:30 AM</div>
+        <div class="timer-blocks">
+          <div class="timer-unit"><strong id="days">00</strong><span>Ngày</span></div>
+          <div class="timer-unit"><strong id="hours">00</strong><span>Giờ</span></div>
+          <div class="timer-unit"><strong id="minutes">00</strong><span>Phút</span></div>
+          <div class="timer-unit"><strong id="seconds">00</strong><span>Giây</span></div>
+        </div>
+      </section>
+
+      <!-- 2. TO-DO LIST (NEW) -->
+      <section class="glass-panel bento-card bento-todo">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">📝</span>
+          <h3 class="card-title">Mục tiêu hôm nay</h3>
+        </div>
+        <div class="todo-container">
+          <form class="todo-form" id="todoForm">
+            <input type="text" id="todoInput" class="input-field" placeholder="Nhập bài cần học..."
+              aria-label="Thêm công việc mới">
+            <button type="submit" class="btn btn-primary" aria-label="Thêm">➕</button>
+          </form>
+          <ul class="todo-list" id="todoList">
+            <!-- Rendered by JS -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- 3. TIMER TOOLS -->
+      <section class="glass-panel bento-card bento-timer">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">⏱️</span>
+          <h3 class="card-title">Công cụ Thời gian</h3>
+        </div>
+        <div class="timer-tabs" role="tablist">
+          <button class="timer-tab active" id="tabStopwatch" role="tab">Đồng hồ bấm giờ</button>
+          <button class="timer-tab" id="tabCountdown" role="tab">Bấm giờ làm đề</button>
         </div>
 
-        <div class="timer-panel active" id="panelStopwatch" style="flex-direction:column;gap:16px;">
-          <div class="timer-display countdown-big" id="stopwatchDisplay">00:00:00</div>
+        <!-- Stopwatch -->
+        <div class="timer-panel active" id="panelStopwatch">
+          <div class="timer-display" id="stopwatchDisplay">00:00:00</div>
           <div class="timer-controls">
-        
             <button class="btn btn-primary" id="btnStopwatchToggle">Bắt đầu</button>
-            <button class="btn btn-danger" id="btnStopwatchReset">Làm lại</button>
+            <button class="btn btn-secondary" id="btnStopwatchReset">Làm lại</button>
           </div>
         </div>
 
-        <div class="timer-panel" id="panelCountdown" style="flex-direction:column;gap:16px;">
-          <select id="subjectSelect">
-            <option value="90">Môn Toán (90 phút)</option>
-            <option value="120">Môn Ngữ Văn (120 phút)</option>
-   
-            <option value="60">Môn Ngoại ngữ (60 phút)</option>
-            <option value="50">Khoa học (50 phút)</option>
-            <option value="15">Test nhanh (15 phút)</option>
+        <!-- Subject Countdown -->
+        <div class="timer-panel" id="panelCountdown">
+          <select id="subjectSelect" class="input-field" style="max-width: 300px;">
+            <option value="90">Toán (90 phút)</option>
+            <option value="120">Ngữ Văn (120 phút)</option>
+            <option value="50">Tổ hợp (50 phút/môn)</option>
+            <option value="60">Ngoại ngữ (60 phút)</option>
           </select>
-          <div class="quote-box" style="margin:0;">
-            <span id="subjectTimerLabel">Chọn môn để xem thời gian tương ứng.</span>
-            
-            <span class="quote-author" id="subjectTimerValue">90 phút</span>
-          </div>
+          <div class="timer-display" id="subjectTimerDisplay">90:00</div>
           <div class="timer-controls">
             <button class="btn btn-primary" id="btnSubjectStart">Bắt đầu</button>
             <button class="btn btn-secondary" id="btnSubjectReset">Làm lại</button>
           </div>
         </div>
-      </article>
+      </section>
 
-      <article class="panel tool-card">
-        <h3><span>🎧</span> Trạm nhạc Lofi</h3>
- 
-        <div class="input-group">
-          <input type="text" id="ytbInput" placeholder="Dán link YouTube..." />
+      <!-- 4. LOFI MUSIC -->
+      <section class="glass-panel bento-card bento-music">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">🎧</span>
+          <h3 class="card-title">Góc Lofi</h3>
+        </div>
+        <div class="music-input-group">
+          <input type="text" id="ytbInput" class="input-field" placeholder="Dán link YouTube..."
+            aria-label="Link Youtube nhạc Lofi">
           <button class="btn btn-primary" id="btnPlayMusic">Phát</button>
         </div>
         <div class="music-player">
-          <iframe id="ytbFrame" src="https://www.youtube.com/embed/jfKfPfyJRdk?rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="origin"></iframe>
+          <iframe id="ytbFrame" width="100%" height="100%" src="https://www.youtube.com/embed/9kzE8isXlQY"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
-      </article>
+      </section>
 
-      <article class="panel tool-card">
-        <h3><span>🔥</span> Nạp năng lượng</h3>
-        <div class="quote-box" id="quoteBox">
-          <span id="quoteText" class="quote-text-large">"Nỗ lực hôm nay, huy hoàng ngày mai. Hãy cố gắng!"</span>
-          <span class="quote-author small" id="quoteAuthor">- Khuyết danh</span>
+      <!-- 5. MOTIVATION QUOTES -->
+      <section class="glass-panel bento-card bento-quote">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">✨</span>
+          <h3 class="card-title">Truyền cảm hứng</h3>
+        </div>
+        <div class="quote-wrapper">
+          <p class="quote-text" id="quoteText">"Nỗ lực hôm nay, huy hoàng ngày mai. Hãy cố gắng!"</p>
+          <span class="quote-author" id="quoteAuthor">- Khuyết danh</span>
         </div>
         <button class="btn btn-secondary" id="btnNewQuote">Đổi câu khác</button>
-      </article>
+      </section>
 
-      <article class="panel tool-card">
-        <h3><span>📰</span> Bảng tin sĩ tử</h3>
-        <ul class="news-list">
-          <a href="https://moet.gov.vn/tin-tuc/tin-tong-hop2/bo-gddt-ban-hanh-huong-dan-to-chuc-ki-thi-tot-nghiep-thpt-nam-2026.html" target="_blank" rel="noopener noreferrer" class="news-item">
-            
-            <span class="news-title">Bộ GDĐT ban hành hướng dẫn tổ chức Kì thi tốt nghiệp THPT năm 2026</span>
-            <span class="news-date">Cập nhật mới</span>
+      <!-- 6. NEWS BOARD -->
+      <section class="glass-panel bento-card bento-news">
+        <div class="card-header">
+          <span class="card-icon" aria-hidden="true">📰</span>
+          <h3 class="card-title">Bảng tin Sĩ tử 2027</h3>
+        </div>
+        <div class="news-list">
+          <a href="https://vnexpress.net/du-kien-thi-chung-de-tot-nghiep-thpt-tren-may-va-tren-giay-5102548.html"
+            target="_blank" rel="noopener noreferrer" class="news-item">
+            <span class="news-title">Dự kiến thi chung đề tốt nghiệp THPT trên máy và trên giấy</span>
+            <span class="news-date">VNEXPRESS</span>
           </a>
-          <a href="https://vqa.moet.gov.vn/vi/news/tin-tuc-su-kien/ky-thi-tot-nghiep-thpt-nam-2026-giu-on-dinh-mot-so-dieu-chinh-khong-anh-huong-toi-thi-sinh-226.html" target="_blank" rel="noopener noreferrer" class="news-item">
-            <span class="news-title">Kỳ thi tốt nghiệp THPT 2026: Giữ ổn định, một số điều chỉnh không ảnh hưởng tới thí sinh</span>
-            <span class="news-date">Tin chính thức</span>
+          <a href="https://www.facebook.com/groups/1993914981519042" target="_blank" rel="noopener noreferrer"
+            class="news-item">
+            <span class="news-title">Group học tập cho 2K9: Ôn thi sớm để bứt phá điểm số</span>
+            <span class="news-date">Cộng đồng 2K9</span>
           </a>
-          <a href="https://moet.gov.vn/tin-tuc/tin-tong-hop2/sua-doi-bo-sung-mot-so-dieu-cua-quy-che-thi-tot-nghiep-trung-hoc-pho-thong.html" target="_blank" rel="noopener noreferrer" class="news-item">
-            <span class="news-title">Sửa đổi, bổ sung một số điều của Quy chế thi tốt nghiệp THPT</span>
-            <span class="news-date">Bộ GDĐT</span>
+          <a href="https://thuvienphapluat.vn/phap-luat/ho-tro-phap-luat/lich-thi-tot-nghiep-thpt-2027-du-kien-khi-nao-thi-tot-nghiep-thpt-2027-gom-nhung-mon-nao-564599-284974.html"
+            target="_blank" rel="noopener noreferrer" class="news-item">
+            <span class="news-title">Lịch thi tốt nghiệp THPT 2027 (dự kiến) khi nào? Thi tốt nghiệp THPT 2027 gồm những
+              môn nào?</span>
+            <span class="news-date">Thư viện Pháp luật</span>
           </a>
-        </ul>
-      </article>
-    </section>
+        </div>
+      </section>
 
-    <footer>© 2026 Trạm Ôn Thi THPT — Chúc bạn học tập thật tốt!</footer>
+    </div><!-- End Bento Grid -->
+
+    <footer class="app-footer">
+      <p>© 2027 Trạm Ôn Thi 2K9 — Chúc bạn đỗ nguyện vọng 1!</p>
+    </footer>
   </main>
 
-  <button class="chat-fab" id="chatFab" aria-label="Mở khung chat">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z" />
+  <!-- FLOATING CHAT BUTTON -->
+  <button class="chat-fab" id="chatFab" aria-label="Mở phòng chat cộng đồng">
+    <svg viewBox="0 0 24 24">
+      <path
+        d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z" />
       <path d="M7 9H17V11H7V9ZM7 13H14V15H7V13Z" />
     </svg>
   </button>
 
-  <div class="chat-overlay" id="chatOverlay"></div>
-  <div class="chat-widget" id="chatWidget">
-    <div class="chat-header">
-      <h3>💬 Kênh Chat Cộng Đồng</h3>
-      <button id="closeChat" aria-label="Đóng">✖</button>
-  
-    </div>
-    <div class="chat-body" id="chatBox">
-      <div style="text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 10px;">
-        Chào mừng bạn vào nhóm chat. Hãy giữ lịch sự nhé!
-      </div>
-    </div>
-    <div class="chat-footer">
-      <input type="text" id="chatName" placeholder="Tên của bạn (VD: Nam 2k8)" maxlength="20" />
-      <div id="chatNameHint" style="font-size:0.8rem;color:var(--muted);margin-top:6px;">Nhập tên một lần duy nhất, sau khi xác nhận sẽ bị ẩn để tránh đổi tên nhiều lần.</div>
-      <div class="input-row">
-        <input type="text" id="chatInput" placeholder="Nhập tin nhắn..." autocomplete="off" />
-        <button class="btn btn-primary" id="btnSendChat">Gửi</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="welcomePopup" style="position:fixed;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;">
-    <div style="width:min(92vw,520px);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.99),rgba(248,250,252,.96));box-shadow:0 30px 90px rgba(0,0,0,.28);padding:0;color:#0f172a;border:1px solid rgba(255,255,255,.56);overflow:hidden;position:relative;">
-      <div style="padding:22px 24px 16px;background:linear-gradient(135deg,#2563eb,#8b5cf6);position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:auto -36px -42px auto;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.12);"></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;position:relative;z-index:1;">
-          <div>
-            <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.02em;">THÔNG BÁO</div>
-        
-            <h2 style="margin:14px 0 0;font-size:1.5rem;line-height:1.25;color:#fff;">Cộng đồng ôn thi THPT</h2>
-            <p style="margin:8px 0 0;color:rgba(255,255,255,.88);line-height:1.55;max-width:380px;">Tham gia group Facebook để cập nhật thông tin, chia sẻ tài liệu và đồng hành cùng nhau.</p>
-          </div>
-          <button id="closeWelcomePopup" aria-label="Đóng popup" style="border:none;background:rgba(255,255,255,.18);color:#fff;width:42px;height:42px;border-radius:999px;font-size:1.1rem;cursor:pointer;backdrop-filter:blur(8px);">✕</button>
+  <!-- CHAT DIALOG (Native Popover) -->
+  <dialog class="chat-dialog" id="chatDialog" aria-labelledby="chatDialogTitle">
+    <div class="chat-container">
+      <div class="chat-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <h3 id="chatDialogTitle">💬 Phòng Chat Cộng Đồng</h3>
+          <button id="btnChangeName"
+            style="background:none;border:none;color:var(--text-secondary);font-size:0.8rem;cursor:pointer;text-decoration:underline;display:none;">Đổi
+            tên</button>
         </div>
+        <button class="btn-close" id="closeChat" aria-label="Đóng">✕</button>
       </div>
-      <div style="padding:22px 24px 24px;">
-        <a href="https://www.facebook.com/groups/1993914981519042" target="_blank" rel="noopener noreferrer" aria-label="Mở group Facebook" style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:20px;background:#f8fafc;border:1px solid rgba(148,163,184,.18);margin-bottom:18px;text-decoration:none;color:inherit;transition:transform .2s ease, box-shadow .2s ease;">
-          <div style="width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,rgba(37,99,235,.14),rgba(139,92,246,.14));display:grid;place-items:center;flex:0 0 auto;font-weight:800;color:#2563eb;font-size:1.1rem;">f</div>
-          <div style="line-height:1.55;">
-            <div style="font-weight:800;font-size:1rem;margin-bottom:4px;">Ấn vào đây để tham gia group</div>
-            <div style="color:var(--muted);font-size:.92rem;">Cập nhật thông tin thi, trao đổi tài liệu và học cùng nhau mỗi ngày.</div>
-          </div>
-       
-        </a>
-        <div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;">
-          <button id="dontShowWelcomeAgain" style="border:none;background:#e2e8f0;color:#0f172a;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;">Không hiện lại</button>
-          <button id="closeWelcomePopup2" style="border:none;background:linear-gradient(135deg,#2563eb,#7c3aed);color:white;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700;">Đóng</button>
+      <div class="sys-msg" id="chatStatus">Đang kết nối...</div>
+
+      <div class="chat-messages" id="chatBox">
+        <div class="sys-msg">Chào mừng bạn gia nhập cộng đồng ôn thi 2K9. Hãy giữ văn hóa lịch sự nhé!</div>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="chat-name-input" id="chatNameContainer">
+          <input type="text" id="chatName" class="input-field" placeholder="Biệt danh (VD: Nam 2K9)" maxlength="20">
+          <span class="chat-name-hint">Tên sẽ được lưu lại cho lần sau.</span>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" class="input-field" placeholder="Nhắn gì đó..." autocomplete="off"
+            maxlength="150">
+          <button class="btn btn-primary" id="btnSendChat" aria-label="Gửi tin nhắn">Gửi</button>
         </div>
       </div>
     </div>
-  </div>
+  </dialog>
 
-  <script>
-    /* ----------------------------------------------------
-       CÁC TÍNH NĂNG TRƯỚC ĐÓ (Giữ nguyên không thay đổi)
-    ----------------------------------------------------- */
-    // Dark/Light Mode
-    const themeToggleBtn = document.getElementById('themeToggle');
-    const htmlElement = document.documentElement;
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    htmlElement.setAttribute('data-theme', savedTheme);
-    themeToggleBtn.addEventListener('click', () => {
-      const newTheme = htmlElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      htmlElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    });
+  <!-- Firebase Scripts (Compat for v9) -->
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-    // Welcome popup for group + donate
-    const welcomePopup = document.getElementById('welcomePopup');
-    const closeWelcomePopup = document.getElementById('closeWelcomePopup');
-    const closeWelcomePopup2 = document.getElementById('closeWelcomePopup2');
-    const dontShowWelcomeAgain = document.getElementById('dontShowWelcomeAgain');
-    const hideWelcome = localStorage.getItem('hide_welcome_popup') === '1';
-    if (!hideWelcome) {
-      welcomePopup.style.display = 'flex';
-    }
-
-    function closeWelcome() {
-      welcomePopup.style.display = 'none';
-    }
-
-    closeWelcomePopup.addEventListener('click', closeWelcome);
-    closeWelcomePopup2.addEventListener('click', closeWelcome);
-    dontShowWelcomeAgain.addEventListener('click', () => {
-      localStorage.setItem('hide_welcome_popup', '1');
-      closeWelcome();
-    });
-    welcomePopup.addEventListener('click', (e) => {
-      if (e.target === welcomePopup) closeWelcome();
-    });
-
-    // Countdown
-    const targetDate = new Date('2026-06-11T07:30:00+07:00');
-    document.getElementById('targetDateText').textContent = `Mốc thời gian: ${targetDate.toLocaleDateString('vi-VN')} - 07:30 AM`;
-    setInterval(() => {
-      const diff = targetDate.getTime() - new Date().getTime();
-      if (diff > 0) {
-        const t = Math.floor(diff / 1000);
-        document.getElementById('days').textContent = String(Math.floor(t / 86400)).padStart(2, '0');
-        document.getElementById('hours').textContent = String(Math.floor((t % 86400) / 3600)).padStart(2, '0');
-        document.getElementById('minutes').textContent = String(Math.floor((t % 3600) / 60)).padStart(2, '0');
-        document.getElementById('seconds').textContent = String(t % 60).padStart(2, '0');
-      }
-    }, 1000);
-
-    // Stopwatch - độc lập
-    let stopwatchSeconds = 0, stopwatchInterval = null, stopwatchRunning = false;
-    const stopwatchDisplay = document.getElementById('stopwatchDisplay');
-    const btnStopwatchToggle = document.getElementById('btnStopwatchToggle');
-    const btnStopwatchReset = document.getElementById('btnStopwatchReset');
-
-    function formatStopwatch(totalSeconds) {
-      const hours = Math.floor(totalSeconds / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }
-
-    function updateStopwatchDisplay() {
-      stopwatchDisplay.textContent = formatStopwatch(stopwatchSeconds);
-    }
-
-    function resetStopwatch() {
-      clearInterval(stopwatchInterval);
-      stopwatchSeconds = 0;
-      stopwatchRunning = false;
-      btnStopwatchToggle.textContent = 'Bắt đầu';
-      updateStopwatchDisplay();
-    }
-
-    btnStopwatchToggle.addEventListener('click', () => {
-      if (stopwatchRunning) {
-        clearInterval(stopwatchInterval);
-        stopwatchRunning = false;
-        btnStopwatchToggle.textContent = 'Tiếp tục';
-        return;
-      }
-      stopwatchRunning = true;
-      btnStopwatchToggle.textContent = 'Dừng';
-      stopwatchInterval = setInterval(() => {
-        stopwatchSeconds += 1;
-        updateStopwatchDisplay();
-      }, 1000);
-    });
-
-    btnStopwatchReset.addEventListener('click', resetStopwatch);
-    updateStopwatchDisplay();
-
-    // Countdown môn thi
-    let subjectCountdownTotal = 90 * 60, subjectCountdownLeft = subjectCountdownTotal, subjectCountdownInterval = null, subjectCountdownRunning = false;
-    const subjectSelect = document.getElementById('subjectSelect');
-    const subjectTimerLabel = document.getElementById('subjectTimerLabel');
-    const subjectTimerValue = document.getElementById('subjectTimerValue');
-    const btnSubjectStart = document.getElementById('btnSubjectStart');
-    const btnSubjectReset = document.getElementById('btnSubjectReset');
-
-    const subjectMap = {
-      90: 'Môn Toán',
-      120: 'Môn Ngữ Văn',
-      60: 'Môn Ngoại ngữ',
-      50: 'Khoa học',
-      15: 'Test nhanh'
-    };
-
-    function updateSubjectPreview(minutes) {
-      const label = subjectMap[minutes] || 'Bài thi';
-      subjectTimerLabel.textContent = `${label} có thời lượng:`;
-      subjectTimerValue.textContent = `${minutes} phút`;
-    }
-
-    function updateSubjectDisplay() {
-      const m = Math.floor(subjectCountdownLeft / 60);
-      const s = subjectCountdownLeft % 60;
-      subjectTimerValue.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-    }
-
-    function resetSubjectCountdown(minutes = parseInt(subjectSelect.value, 10)) {
-      clearInterval(subjectCountdownInterval);
-      subjectCountdownRunning = false;
-      subjectCountdownTotal = minutes * 60;
-      subjectCountdownLeft = subjectCountdownTotal;
-      updateSubjectPreview(minutes);
-      updateSubjectDisplay();
-      btnSubjectStart.textContent = 'Bắt đầu';
-    }
-
-    subjectSelect.addEventListener('change', () => {
-      const minutes = parseInt(subjectSelect.value, 10);
-      updateSubjectPreview(minutes);
-      resetSubjectCountdown(minutes);
-    });
-
-    btnSubjectStart.addEventListener('click', () => {
-      if (subjectCountdownRunning) {
-        clearInterval(subjectCountdownInterval);
-        subjectCountdownRunning = false;
-        btnSubjectStart.textContent = 'Tiếp tục';
-        return;
-      }
-      subjectCountdownRunning = true;
-      btnSubjectStart.textContent = 'Dừng';
-      subjectCountdownInterval = setInterval(() => {
-        if (subjectCountdownLeft > 0) {
-          subjectCountdownLeft -= 1;
-          updateSubjectDisplay();
-        } else {
-          clearInterval(subjectCountdownInterval);
-          subjectCountdownRunning = false;
-          btnSubjectStart.textContent = 'Bắt đầu';
-        }
-      }, 1000);
-    });
-
-    btnSubjectReset.addEventListener('click', () => resetSubjectCountdown(parseInt(subjectSelect.value, 10)));
-    updateSubjectPreview(parseInt(subjectSelect.value, 10));
-    resetSubjectCountdown();
-
-    // Tabs
-    const tabStopwatch = document.getElementById('tabStopwatch');
-    const tabCountdown = document.getElementById('tabCountdown');
-    const panelStopwatch = document.getElementById('panelStopwatch');
-    const panelCountdown = document.getElementById('panelCountdown');
-
-    function setActiveTimerTab(tab) {
-      const isStopwatch = tab === 'stopwatch';
-      tabStopwatch.classList.toggle('active', isStopwatch);
-      tabCountdown.classList.toggle('active', !isStopwatch);
-      tabStopwatch.setAttribute('aria-selected', String(isStopwatch));
-      tabCountdown.setAttribute('aria-selected', String(!isStopwatch));
-      panelStopwatch.classList.toggle('active', isStopwatch);
-      panelCountdown.classList.toggle('active', !isStopwatch);
-    }
-
-    tabStopwatch.addEventListener('click', () => setActiveTimerTab('stopwatch'));
-    tabCountdown.addEventListener('click', () => setActiveTimerTab('countdown'));
-
-    /* ----------------------------------------------------
-       TÍNH NĂNG CHAT NỔI (UI LOGIC)
-    ----------------------------------------------------- */
-    const chatFab = document.getElementById('chatFab');
-    const chatWidget = document.getElementById('chatWidget');
-    const chatOverlay = document.getElementById('chatOverlay');
-    const closeChat = document.getElementById('closeChat');
-    
-    function openChat() {
-      chatWidget.classList.add('active');
-      chatOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeChatWidget() {
-      chatWidget.classList.remove('active');
-      chatOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    // Mở / Đóng khung chat
-    chatFab.addEventListener('click', openChat);
-    closeChat.addEventListener('click', closeChatWidget);
-    chatOverlay.addEventListener('click', closeChatWidget);
-
-    /* ----------------------------------------------------
-       KẾT NỐI FIREBASE REALTIME DATABASE
-    ----------------------------------------------------- */
-    const firebaseConfig = {
-      apiKey: "AIzaSyCCLwXwAffSc5c03SLvrGgJmBIhhjg2-4g",
-      authDomain: "countdownthpt-6823b.firebaseapp.com",
-      databaseURL: "https://countdownthpt-6823b-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "countdownthpt-6823b",
-      storageBucket: "countdownthpt-6823b.firebasestorage.app",
-      messagingSenderId: "385637956666",
-      appId: "1:385637956666:web:9973dbc8710266aa3b8903",
-      measurementId: "G-GP743V12WW"
-    };
-
-    const chatBox = document.getElementById('chatBox');
-    const chatInput = document.getElementById('chatInput');
-    const chatName = document.getElementById('chatName');
-    const btnSendChat = document.getElementById('btnSendChat');
-
-    const savedChatName = localStorage.getItem('chat_user_name') || '';
-    const chatNameHint = document.getElementById('chatNameHint');
-
-    if (savedChatName) {
-      chatName.value = savedChatName;
-      chatName.disabled = true;
-      chatName.style.display = 'none';
-      if (chatNameHint) chatNameHint.style.display = 'none';
-    }
-
-    function lockChatName() {
-      const name = chatName.value.trim();
-      if (!name) return null;
-      localStorage.setItem('chat_user_name', name);
-      chatName.disabled = true;
-      chatName.style.display = 'none';
-      if (chatNameHint) chatNameHint.style.display = 'none';
-      return name;
-    }
-
-    function getChatName() {
-      return localStorage.getItem('chat_user_name') || chatName.value.trim() || 'Ẩn danh';
-    }
-
-    function appendMessage(name, text, type) {
-      const msgWrapper = document.createElement('div');
-      msgWrapper.className = `msg-wrapper ${type}`;
-
-      const safeName = document.createElement('span');
-      safeName.className = 'msg-sender';
-      safeName.textContent = name;
-
-      const safeBubble = document.createElement('div');
-      safeBubble.className = 'msg-bubble';
-      safeBubble.textContent = text;
-
-      msgWrapper.appendChild(safeName);
-      msgWrapper.appendChild(safeBubble);
-      chatBox.appendChild(msgWrapper);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    const chatStatus = document.createElement('div');
-    chatStatus.style.cssText = 'font-size:0.78rem;color:var(--muted);text-align:center;padding:2px 0 0;';
-    chatStatus.textContent = 'Đang kết nối realtime...';
-    chatBox.appendChild(chatStatus);
-
-    function updateChatStatus(text) {
-      chatStatus.textContent = text;
-    }
-
-    function appendSystemMessage(text) {
-      const msg = document.createElement('div');
-      msg.style.cssText = 'text-align:center;color:var(--muted);font-size:0.85rem;padding:8px 12px;';
-      msg.textContent = text;
-      chatBox.appendChild(msg);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function clearChatMessages() {
-      chatBox.innerHTML = '';
-    }
-
-    function setChatWelcomeState(text) {
-      clearChatMessages();
-      const msg = document.createElement('div');
-      msg.id = 'chatWelcomeMessage';
-      msg.style.cssText = 'text-align:center;color:var(--muted);font-size:0.85rem;padding:8px 12px;';
-      msg.textContent = text;
-      chatBox.appendChild(msg);
-    }
-
-    function hideIntroBlocks() {
-      if (chatNameHint) chatNameHint.style.display = 'none';
-    }
-
-    function removeChatWelcomeMessage() {
-      const el = document.getElementById('chatWelcomeMessage');
-      if (el) el.remove();
-    }
-
-    function clearSystemMessages() {
-      chatBox.querySelectorAll('[style*="text-align:center;color:var(--muted)"]').forEach((el) => {
-        if (el.id !== 'chatWelcomeMessage') el.remove();
-      });
-    }
-
-    const quoteBox = document.getElementById('quoteBox');
-    const quoteText = document.getElementById('quoteText');
-    const quoteAuthor = document.getElementById('quoteAuthor');
-    const btnNewQuote = document.getElementById('btnNewQuote');
-    const motivationQuotes = [
-      { text: 'Nỗ lực hôm nay, huy hoàng ngày mai. Hãy cố gắng!', author: 'Khuyết danh' },
-      { text: 'Kỷ luật là cầu nối giữa mục tiêu và thành tựu.', author: 'Jim Rohn' },
-      { text: 'Bạn không cần xuất sắc ngay lập tức, chỉ cần không bỏ cuộc.', author: 'Khuyết danh' },
-      { text: 'Mỗi ngày học thêm một chút, tương lai sẽ khác rất nhiều.', author: 'Khuyết danh' },
-      { text: 'Không ai chạm tới đỉnh cao bằng cách đứng yên.', author: 'Khuyết danh' },
-      { text: 'Hôm nay cố gắng, ngày mai đỡ vất vả hơn.', author: 'Khuyết danh' },
-      { text: 'Thành công thích những người kiên trì hơn là bốc đồng.', author: 'Khuyết danh' },
-      { text: 'Đi chậm vẫn tốt hơn là không đi.', author: 'Khuyết danh' },
-      { text: 'Bạn đủ giỏi để bắt đầu, đủ bền để đi đến cuối.', author: 'Khuyết danh' },
-      { text: 'Đừng đợi động lực, hãy xây dựng thói quen.', author: 'Khuyết danh' },
-      { text: 'Mục tiêu lớn được hoàn thành từ những việc nhỏ lặp lại mỗi ngày.', author: 'Khuyết danh' },
-      { text: 'Một bước nhỏ hôm nay có thể đổi cả chặng đường mai sau.', author: 'Khuyết danh' }
-    ];
-
-    function getRandomQuote(currentText) {
-      if (motivationQuotes.length === 0) return { text: currentText, author: 'Khuyết danh' };
-      let next = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
-      while (motivationQuotes.length > 1 && next.text === currentText) {
-        next = motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
-      }
-      return next;
-    }
-
-    btnNewQuote.addEventListener('click', () => {
-      const nextQuote = getRandomQuote(quoteText?.textContent?.replaceAll('"', '')?.trim() || '');
-      if (quoteBox) {
-        quoteBox.style.opacity = '0';
-        quoteBox.style.transform = 'translateY(6px)';
-      }
-      setTimeout(() => {
-        quoteText.textContent = `"${nextQuote.text}"`;
-        quoteAuthor.textContent = `- ${nextQuote.author}`;
-        if (quoteBox) {
-          quoteBox.style.opacity = '1';
-          quoteBox.style.transform = 'translateY(0)';
-        }
-      }, 160);
-    });
-
-    const btnPlayMusic = document.getElementById('btnPlayMusic');
-    const ytbInput = document.getElementById('ytbInput');
-    const ytbFrame = document.getElementById('ytbFrame');
-
-    function setMusicError(message) {
-      ytbFrame.src = 'about:blank';
-      ytbFrame.style.border = '1px solid rgba(239, 68, 68, 0.45)';
-      ytbFrame.style.background = 'rgba(239, 68, 68, 0.08)';
-      ytbFrame.title = message;
-      // Có thể hiển thị alert hoặc toast ở đây nếu muốn báo cho user
-    }
-
-    function extractYouTubeId(url) {
-      // 1. Thêm https:// nếu link dán vào bị thiếu để hàm new URL() không bị lỗi
-      let cleanUrl = url.trim().replace(/^<|>$/g, '');
-      if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
-        cleanUrl = 'https://' + cleanUrl;
-      }
-
-      try {
-        const parsed = new URL(cleanUrl);
-        // Phân tích link youtube.com
-        if (parsed.hostname.includes('youtube.com')) {
-          const v = parsed.searchParams.get('v');
-          if (v) return v.replace(/[^A-Za-z0-9_-]/g, '');
-          
-          if (parsed.pathname.startsWith('/embed/') || parsed.pathname.startsWith('/shorts/')) {
-            return parsed.pathname.split('/')[2].replace(/[^A-Za-z0-9_-]/g, '');
-          }
-        } 
-        // Phân tích link rút gọn youtu.be
-        else if (parsed.hostname.includes('youtu.be')) {
-          return parsed.pathname.slice(1).replace(/[^A-Za-z0-9_-]/g, '');
-        }
-      } catch (e) {}
-
-      // 2. Fallback bằng Regex cực mạnh (Bắt được mọi ID 11 ký tự)
-      const match = cleanUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?.*v=))([A-Za-z0-9_-]{11})/i);
-      return (match && match[1]) ? match[1] : '';
-    }
-
-    function playYouTubeVideo() {
-      const url = ytbInput.value.trim();
-      if (!url) return setMusicError('Vui lòng dán link YouTube hợp lệ.');
-
-      const id = extractYouTubeId(url);
-      if (!id || id.length < 6) {
-        return setMusicError('Không nhận diện được ID video. Hãy dán link chuẩn (VD: youtu.be/xyz).');
-      }
-
-      // Xóa src cũ để ép trình duyệt dọn bộ nhớ và tải mới hoàn toàn
-      ytbFrame.src = 'about:blank'; 
-
-      // Đặt độ trễ nhỏ để iframe kịp reset trước khi gán link mới
-      setTimeout(() => {
-        // Đã xóa origin=... và đổi mute=0 để có tiếng
-        const embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1`;
-        
-        ytbFrame.style.border = '1px solid var(--card-border)';
-        ytbFrame.style.background = 'var(--stat-bg)';
-        ytbFrame.title = 'YouTube video player';
-        ytbFrame.allow = 'autoplay; encrypted-media; picture-in-picture';
-        ytbFrame.src = embedUrl;
-      }, 50);
-    }
-
-    // Lắng nghe sự kiện click nút Phát
-    btnPlayMusic.addEventListener('click', playYouTubeVideo);
-
-    // Bổ sung: Cho phép bấm phím Enter trong ô input để mở nhạc luôn
-    ytbInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        playYouTubeVideo();
-      }
-    });
-
-    chatName.addEventListener('change', () => {
-      const lockedName = lockChatName();
-      if (lockedName) {
-        hideIntroBlocks();
-        appendSystemMessage(`Tên người dùng đã được lưu là "${lockedName}".`);
-      }
-    });
-
-    chatName.addEventListener('blur', () => {
-      if (!localStorage.getItem('chat_user_name')) {
-        lockChatName();
-        hideIntroBlocks();
-      }
-    });
-
-    let chatRef = null;
-    let currentUserId = localStorage.getItem('chat_user_id') || '';
-    let lastSendAt = Number(localStorage.getItem('chat_last_send_at') || 0);
-    const CHAT_COOLDOWN_MS = 2000;
-
-    function ensureAnonymousAuth() {
-      return firebase.auth().signInAnonymously().then((result) => {
-        currentUserId = result.user?.uid || currentUserId || 'anonymous';
-        localStorage.setItem('chat_user_id', currentUserId);
-        return currentUserId;
-      });
-    }
-
-    function canSendNow() {
-      return (Date.now() - lastSendAt) >= CHAT_COOLDOWN_MS;
-    }
-
-    try {
-      firebase.initializeApp(firebaseConfig);
-      const database = firebase.database();
-      chatRef = database.ref('messages');
-
-      // Hàm bọc logic tải tin nhắn, chỉ gọi KHI ĐÃ ĐĂNG NHẬP XONG
-      function startLoadingMessages() {
-        clearChatMessages();
-        
-        // Load tin nhắn cũ và nghe tin nhắn mới
-        chatRef.orderByChild('timestamp').limitToLast(50).on('child_added', (snapshot) => {
-          const data = snapshot.val() || {};
-          clearSystemMessages();
-          removeChatWelcomeMessage();
-          appendMessage(data.name || 'Ẩn danh', data.text || '', (data.uid === currentUserId) ? 'self' : 'others');
-        }, (error) => {
-          console.error('Firebase realtime error:', error);
-          updateChatStatus('Kết nối realtime lỗi.');
-          appendSystemMessage('Lỗi tải tin nhắn: ' + (error.message || 'Không xác định')); 
-        });
-
-        // Kiểm tra database trống
-        chatRef.orderByChild('timestamp').limitToLast(1).once('value').then((snapshot) => {
-          if (!snapshot.exists()) {
-            setChatWelcomeState('Chào mừng bạn vào nhóm chat. Hãy giữ lịch sự nhé!');
-          }
-        });
-      }
-
-      // Lắng nghe trạng thái đăng nhập
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          currentUserId = user.uid;
-          localStorage.setItem('chat_user_id', currentUserId);
-          updateChatStatus('Đã kết nối máy chủ chat.');
-        }
-      });
-
-      // THỰC HIỆN ĐĂNG NHẬP TRƯỚC, THÀNH CÔNG MỚI LOAD DATA
-      firebase.auth().signInAnonymously()
-        .then((result) => {
-          currentUserId = result.user?.uid || currentUserId || 'anonymous';
-          localStorage.setItem('chat_user_id', currentUserId);
-          
-          // Đã có quyền -> Bắt đầu tải tin nhắn
-          startLoadingMessages(); 
-        })
-        .catch((error) => {
-          console.error('Anonymous auth error:', error);
-          updateChatStatus('Không thể đăng nhập ẩn danh.');
-          appendSystemMessage('Lỗi xác thực: Cần bật Anonymous trong Authentication (Firebase Console).');
-        });
-
-    } catch (error) {
-      console.error('Firebase init error:', error);
-      appendSystemMessage('Firebase chưa sẵn sàng, chat realtime tạm thời không hoạt động.');
-    }
-
-    async function sendMessage() {
-      const text = chatInput.value.trim();
-      const name = lockChatName() || getChatName();
-
-      if (!chatRef) {
-        appendSystemMessage('Chat chưa kết nối được.');
-        updateChatStatus('Chưa kết nối Firebase.');
-        return;
-      }
-
-      if (text === '') return;
-
-      if (!canSendNow()) {
-        appendSystemMessage('Bạn gửi quá nhanh, vui lòng chờ 2 giây rồi thử lại.');
-        return;
-      }
-
-      hideIntroBlocks();
-      btnSendChat.disabled = true;
-      btnSendChat.textContent = 'Đang gửi...';
-      updateChatStatus('Đang gửi tin nhắn...');
-
-      const messagePayload = {
-        uid: currentUserId,
-        name,
-        text,
-        timestamp: firebase.database.ServerValue.TIMESTAMP,
-        createdAt: new Date().toISOString()
-      };
-
-      try {
-        const newMsgRef = await chatRef.push(messagePayload);
-        chatInput.value = '';
-        lastSendAt = Date.now();
-        localStorage.setItem('chat_last_send_at', String(lastSendAt));
-        
-        // Đã xóa appendMessage(name, text, 'self') ở đây để tránh trùng lặp
-        
-        removeChatWelcomeMessage();
-        clearSystemMessages();
-        updateChatStatus('Tin nhắn đã gửi thành công.');
-      } catch (error) {
-        console.error('Send message failed:', error);
-        // BẢN SỬA LỖI: Sửa hàm gọi lỗi để tránh crash
-        appendSystemMessage(error.message || 'Gửi thất bại, lỗi không xác định');
-        updateChatStatus('Gửi thất bại, vui lòng thử lại.');
-      } finally {
-        btnSendChat.disabled = false;
-        btnSendChat.textContent = 'Gửi';
-      }
-    }
-
-    function bindSendEvents() {
-      btnSendChat.addEventListener('click', sendMessage);
-      chatInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          sendMessage();
-        }
-      });
-    }
-
-    bindSendEvents();
-
-  </script>
+  <!-- Main Script -->
+  <script defer src="script.js"></script>
 </body>
+
 </html>
